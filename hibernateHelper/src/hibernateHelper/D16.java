@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class D16 implements java.io.Serializable {
 
 	// Fields
-
+	//d
 	private String d1600;
 	private String d0100;
 	private String d1601;
