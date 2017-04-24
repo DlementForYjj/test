@@ -12,7 +12,9 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.regex.Matcher;
@@ -57,8 +59,12 @@ public class test implements Cloneable{
 //			e.printStackTrace();
 //		}
 		
-		System.out.println("1bb89eojfm4f0000, 1a5e9mhkrm7q0000, 1a7jbpjbtj1e0000, 1a79lrek9j1e0000, 1a4fc6peorto0000, 1agjl18cnpn30000, 1a7c4psjoj1e0000, 1a9rrof45hd40000, 1atko83a1oqu0000, 1adsai6f77uj0000, 1a7j5pstej1e0000, 1aadcnnelajf0000, 1a7j5q6rfj1e0000, 1a79lgpimj1e0000".split(",").length);
+//		System.out.println("1bb89eojfm4f0000, 1a5e9mhkrm7q0000, 1a7jbpjbtj1e0000, 1a79lrek9j1e0000, 1a4fc6peorto0000, 1agjl18cnpn30000, 1a7c4psjoj1e0000, 1a9rrof45hd40000, 1atko83a1oqu0000, 1adsai6f77uj0000, 1a7j5pstej1e0000, 1aadcnnelajf0000, 1a7j5q6rfj1e0000, 1a79lgpimj1e0000".split(",").length);
 		
+		
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("a", "c");
+		System.out.println(map.put("a", "b"));
 	}
 	
 	
