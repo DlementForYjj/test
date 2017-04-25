@@ -37,6 +37,7 @@ public class E07 implements java.io.Serializable {
 	private String e0711;
 	private Date e0714;
 	private String e07b6;
+	private Date e0715;
 
 	// Constructors
 
@@ -54,7 +55,8 @@ public class E07 implements java.io.Serializable {
 			String e0705, Integer e0706, Integer e0707, String e0712,
 			Date e0713, String e07b1, String e07b2, String e07b3,
 			String e07b4, String e07b5, String e0708, String e0709,
-			String e0710, String e0711, Date e0714, String e07b6) {
+			String e0710, String e0711, Date e0714, String e07b6,
+			Date e0715) {
 		this.id = id;
 		this.e0701 = e0701;
 		this.e0703 = e0703;
@@ -75,6 +77,7 @@ public class E07 implements java.io.Serializable {
 		this.e0711 = e0711;
 		this.e0714 = e0714;
 		this.e07b6 = e07b6;
+		this.e0715 = e0715;
 	}
 
 	// Property accessors
@@ -259,6 +262,15 @@ public class E07 implements java.io.Serializable {
 
 	public void setE07b6(String e07b6) {
 		this.e07b6 = e07b6;
+	}
+
+	@Column(name = "E0715", length = 7)
+	public Date getE0715() {
+		return this.e0715;
+	}
+
+	public void setE0715(Date e0715) {
+		this.e0715 = e0715;
 	}
 
 }

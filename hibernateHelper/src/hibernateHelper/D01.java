@@ -1,6 +1,6 @@
 package hibernateHelper;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,7 +10,7 @@ import javax.persistence.Table;
  * D01 entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "D01")
+@Table(name = "D01", schema = "PAM")
 public class D01 implements java.io.Serializable {
 
 	// Fields
@@ -26,12 +26,12 @@ public class D01 implements java.io.Serializable {
 	private String d0113;
 	private String d0121;
 	private String d0123;
-	private Date d0144;
+	private Timestamp d0144;
 	private String d0147;
-	private Date d0154;
+	private Timestamp d0154;
 	private String d0157;
 	private String d0172;
-	private Date d0173;
+	private Timestamp d0173;
 	private String d0175;
 	private String d0189;
 	private String d0191;
@@ -71,7 +71,7 @@ public class D01 implements java.io.Serializable {
 	private String d0195;
 	private String d1801;
 	private String d1802;
-	private Date d1803;
+	private Timestamp d1803;
 	private String d1804;
 	private String d1805;
 	private String d1806;
@@ -79,7 +79,7 @@ public class D01 implements java.io.Serializable {
 	private String d0151;
 	private String d0161;
 	private String d0109;
-	private Date e3703;
+	private Timestamp e3703;
 	private String e3704;
 	private String e3701;
 	private String e3709;
@@ -88,12 +88,12 @@ public class D01 implements java.io.Serializable {
 	private String e3705;
 	private Integer e0702;
 	private Integer e0703;
-	private Date e0704;
+	private Timestamp e0704;
 	private String e0705;
 	private Integer e0706;
 	private Integer e0707;
 	private String e0712;
-	private Date e0713;
+	private Timestamp e0713;
 	private String e07b1;
 	private String e07b2;
 	private String e07b3;
@@ -116,10 +116,10 @@ public class D01 implements java.io.Serializable {
 	private String d16b18;
 	private String d16a2;
 	private String d1681;
-	private Date e0714;
+	private Timestamp e0714;
 	private Integer d16n1;
-	private Date e3712;
-	private Date d1808;
+	private Timestamp e3712;
+	private Timestamp d1808;
 	private String e3708;
 	private Double d16b8;
 	private String d1671;
@@ -133,7 +133,7 @@ public class D01 implements java.io.Serializable {
 	private String e07b6;
 	private String d16b13;
 	private String e0798;
-	private Date x0102;
+	private Timestamp x0102;
 	private Integer d1691;
 	private Integer d16b9;
 	private String d1689;
@@ -144,6 +144,7 @@ public class D01 implements java.io.Serializable {
 	private String d16b12;
 	private Integer d16b15;
 	private String d16b6;
+	private Timestamp e0715;
 
 	// Constructors
 
@@ -159,9 +160,9 @@ public class D01 implements java.io.Serializable {
 	/** full constructor */
 	public D01(String d0100, String d0101, String d0104, Integer d0105,
 			Integer d0106, String d0107, String d0108, String d0112,
-			String d0113, String d0121, String d0123, Date d0144,
-			String d0147, Date d0154, String d0157, String d0172,
-			Date d0173, String d0175, String d0189, String d0191,
+			String d0113, String d0121, String d0123, Timestamp d0144,
+			String d0147, Timestamp d0154, String d0157, String d0172,
+			Timestamp d0173, String d0175, String d0189, String d0191,
 			String d0192, String d0193, String d0194, String d01a1,
 			String d01a2, Integer d01a3, Integer d01a4, Integer d01a5,
 			Integer d01a6, String d01b1, String d01b2, String d01b3,
@@ -171,25 +172,25 @@ public class D01 implements java.io.Serializable {
 			String e0209, String e0261, String e0263, String e0265,
 			String e0267, String e0326, String d01Parent, String d01Path,
 			String d0196, String d0195, String d1801, String d1802,
-			Date d1803, String d1804, String d1805, String d1806,
+			Timestamp d1803, String d1804, String d1805, String d1806,
 			String d1807, String d0151, String d0161, String d0109,
-			Date e3703, String e3704, String e3701, String e3709,
+			Timestamp e3703, String e3704, String e3701, String e3709,
 			String e3710, String e3711, String e3705, Integer e0702,
-			Integer e0703, Date e0704, String e0705, Integer e0706,
-			Integer e0707, String e0712, Date e0713, String e07b1,
+			Integer e0703, Timestamp e0704, String e0705, Integer e0706,
+			Integer e0707, String e0712, Timestamp e0713, String e07b1,
 			String e07b2, String e07b3, String e07b4, String e07b5,
 			String e0708, String e0709, String e0710, String e0711,
 			String d01From, String d1601a, String d1601, String d1624,
 			String d1631, String d1634, String d1660, String d1661,
 			String d1664, String d1699, String d16b18, String d16a2,
-			String d1681, Date e0714, Integer d16n1, Date e3712,
-			Date d1808, String e3708, Double d16b8, String d1671,
+			String d1681, Timestamp e0714, Integer d16n1, Timestamp e3712,
+			Timestamp d1808, String e3708, Double d16b8, String d1671,
 			String d16b14, String d1677, String d0110, Double e3799,
 			Double d1899, Double d16c1, Double e07c1, String e07b6,
-			String d16b13, String e0798, Date x0102, Integer d1691,
+			String d16b13, String e0798, Timestamp x0102, Integer d1691,
 			Integer d16b9, String d1689, String d16b1, String d16b2,
 			String d16b3, String d16b11, String d16b12, Integer d16b15,
-			String d16b6) {
+			String d16b6, Timestamp e0715) {
 		this.d0100 = d0100;
 		this.d0101 = d0101;
 		this.d0104 = d0104;
@@ -319,6 +320,7 @@ public class D01 implements java.io.Serializable {
 		this.d16b12 = d16b12;
 		this.d16b15 = d16b15;
 		this.d16b6 = d16b6;
+		this.e0715 = e0715;
 	}
 
 	// Property accessors
@@ -423,11 +425,11 @@ public class D01 implements java.io.Serializable {
 	}
 
 	@Column(name = "D0144", length = 7)
-	public Date getD0144() {
+	public Timestamp getD0144() {
 		return this.d0144;
 	}
 
-	public void setD0144(Date d0144) {
+	public void setD0144(Timestamp d0144) {
 		this.d0144 = d0144;
 	}
 
@@ -441,11 +443,11 @@ public class D01 implements java.io.Serializable {
 	}
 
 	@Column(name = "D0154", length = 7)
-	public Date getD0154() {
+	public Timestamp getD0154() {
 		return this.d0154;
 	}
 
-	public void setD0154(Date d0154) {
+	public void setD0154(Timestamp d0154) {
 		this.d0154 = d0154;
 	}
 
@@ -468,11 +470,11 @@ public class D01 implements java.io.Serializable {
 	}
 
 	@Column(name = "D0173", length = 7)
-	public Date getD0173() {
+	public Timestamp getD0173() {
 		return this.d0173;
 	}
 
-	public void setD0173(Date d0173) {
+	public void setD0173(Timestamp d0173) {
 		this.d0173 = d0173;
 	}
 
@@ -828,11 +830,11 @@ public class D01 implements java.io.Serializable {
 	}
 
 	@Column(name = "D1803", length = 7)
-	public Date getD1803() {
+	public Timestamp getD1803() {
 		return this.d1803;
 	}
 
-	public void setD1803(Date d1803) {
+	public void setD1803(Timestamp d1803) {
 		this.d1803 = d1803;
 	}
 
@@ -900,11 +902,11 @@ public class D01 implements java.io.Serializable {
 	}
 
 	@Column(name = "E3703", length = 7)
-	public Date getE3703() {
+	public Timestamp getE3703() {
 		return this.e3703;
 	}
 
-	public void setE3703(Date e3703) {
+	public void setE3703(Timestamp e3703) {
 		this.e3703 = e3703;
 	}
 
@@ -981,11 +983,11 @@ public class D01 implements java.io.Serializable {
 	}
 
 	@Column(name = "E0704", length = 7)
-	public Date getE0704() {
+	public Timestamp getE0704() {
 		return this.e0704;
 	}
 
-	public void setE0704(Date e0704) {
+	public void setE0704(Timestamp e0704) {
 		this.e0704 = e0704;
 	}
 
@@ -1026,11 +1028,11 @@ public class D01 implements java.io.Serializable {
 	}
 
 	@Column(name = "E0713", length = 7)
-	public Date getE0713() {
+	public Timestamp getE0713() {
 		return this.e0713;
 	}
 
-	public void setE0713(Date e0713) {
+	public void setE0713(Timestamp e0713) {
 		this.e0713 = e0713;
 	}
 
@@ -1233,11 +1235,11 @@ public class D01 implements java.io.Serializable {
 	}
 
 	@Column(name = "E0714", length = 7)
-	public Date getE0714() {
+	public Timestamp getE0714() {
 		return this.e0714;
 	}
 
-	public void setE0714(Date e0714) {
+	public void setE0714(Timestamp e0714) {
 		this.e0714 = e0714;
 	}
 
@@ -1251,20 +1253,20 @@ public class D01 implements java.io.Serializable {
 	}
 
 	@Column(name = "E3712", length = 7)
-	public Date getE3712() {
+	public Timestamp getE3712() {
 		return this.e3712;
 	}
 
-	public void setE3712(Date e3712) {
+	public void setE3712(Timestamp e3712) {
 		this.e3712 = e3712;
 	}
 
 	@Column(name = "D1808", length = 7)
-	public Date getD1808() {
+	public Timestamp getD1808() {
 		return this.d1808;
 	}
 
-	public void setD1808(Date d1808) {
+	public void setD1808(Timestamp d1808) {
 		this.d1808 = d1808;
 	}
 
@@ -1386,11 +1388,11 @@ public class D01 implements java.io.Serializable {
 	}
 
 	@Column(name = "X0102", length = 7)
-	public Date getX0102() {
+	public Timestamp getX0102() {
 		return this.x0102;
 	}
 
-	public void setX0102(Date x0102) {
+	public void setX0102(Timestamp x0102) {
 		this.x0102 = x0102;
 	}
 
@@ -1482,6 +1484,15 @@ public class D01 implements java.io.Serializable {
 
 	public void setD16b6(String d16b6) {
 		this.d16b6 = d16b6;
+	}
+
+	@Column(name = "E0715", length = 7)
+	public Timestamp getE0715() {
+		return this.e0715;
+	}
+
+	public void setE0715(Timestamp e0715) {
+		this.e0715 = e0715;
 	}
 
 }
