@@ -1,4 +1,4 @@
-package test.soket;
+package test.net.soket;
 
 import java.net.*;
 import java.io.*;
@@ -21,7 +21,7 @@ public class GreetingServer extends Thread
          {
             System.out.println("Waiting for client on port " +serverSocket.getLocalPort() + "...");
             Socket server = serverSocket.accept();
-            System.out.println("Just connected to "+ server.getRemoteSocketAddress());
+            System.out.println("Server Connected:"+ server.getRemoteSocketAddress());
             DataInputStream in = new DataInputStream(server.getInputStream());
             System.out.println(in.readUTF());
             DataOutputStream out = new DataOutputStream(server.getOutputStream());

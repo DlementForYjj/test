@@ -1,4 +1,4 @@
-package test.soket;
+package test.net.file;
 
 import java.io.DataInputStream; 
 import java.io.File; 
