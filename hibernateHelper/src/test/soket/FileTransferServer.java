@@ -78,7 +78,7 @@ public class FileTransferServer extends ServerSocket {
         File directory = new File("D:\\FTCache"); 
         if(!directory.exists()) { 
           directory.mkdir(); 
-        } 
+        }
         File file = new File(directory.getAbsolutePath() + File.separatorChar + fileName); 
         fos = new FileOutputStream(file); 
   
