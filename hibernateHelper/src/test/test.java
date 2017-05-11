@@ -37,6 +37,7 @@ public class test implements Cloneable{
 	}
 	
 	public static void main(String[] args) {
+		printfLength("?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?");
 ////		System.out.println(addPlaceHolder());`
 //		double i = 31.8-38.16/2+1+13+2.5-3+13.5+20.5;
 //		System.out.println("I7DrJuMhZ7eEtiuTJsiX81PQjBn1hmPV7TTDTK/aQyP108bMXKx4f5Ur3BTZc9LLOuhUd0HM".length());
@@ -62,9 +63,9 @@ public class test implements Cloneable{
 //		System.out.println("1bb89eojfm4f0000, 1a5e9mhkrm7q0000, 1a7jbpjbtj1e0000, 1a79lrek9j1e0000, 1a4fc6peorto0000, 1agjl18cnpn30000, 1a7c4psjoj1e0000, 1a9rrof45hd40000, 1atko83a1oqu0000, 1adsai6f77uj0000, 1a7j5pstej1e0000, 1aadcnnelajf0000, 1a7j5q6rfj1e0000, 1a79lgpimj1e0000".split(",").length);
 		
 		
-		Map<String,String> map = new HashMap<String,String>();
-		map.put("a", "c");
-		System.out.println(map.put("a", "b"));
+//		Map<String,String> map = new HashMap<String,String>();
+//		map.put("a", "c");
+//		System.out.println(map.put("a", "b"));
 	}
 	
 	
@@ -495,5 +496,8 @@ public class test implements Cloneable{
 	            }
 	       }
 	    }
+	}
+	public static void printfLength(String s){
+		System.out.println(s.split(",").length);
 	}
 }

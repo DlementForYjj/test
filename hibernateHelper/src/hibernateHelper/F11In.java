@@ -1,6 +1,6 @@
 package hibernateHelper;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,11 +17,11 @@ public class F11In implements java.io.Serializable {
 
 	private String f1100;
 	private String a0100;
-	private Date f1101;
+	private Timestamp f1101;
 	private String f1102;
 	private String f1103;
 	private String f1104;
-	private Date f1105;
+	private Timestamp f1105;
 	private String f1106;
 	private String f1107;
 	private String f1109;
@@ -31,13 +31,15 @@ public class F11In implements java.io.Serializable {
 	private String f1114;
 	private String f1115;
 	private String f1116;
-	private Date f1117;
+	private Timestamp f1117;
 	private String f1119;
 	private String f1127;
 	private String d0100;
 	private String isMain;
 	private String f1108;
 	private String f1120;
+	private String d0101;
+	private String f1121;
 
 	// Constructors
 
@@ -51,12 +53,13 @@ public class F11In implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public F11In(String f1100, String a0100, Date f1101, String f1102,
-			String f1103, String f1104, Date f1105, String f1106,
+	public F11In(String f1100, String a0100, Timestamp f1101, String f1102,
+			String f1103, String f1104, Timestamp f1105, String f1106,
 			String f1107, String f1109, String f1110, String f1111,
 			String f1112, String f1114, String f1115, String f1116,
-			Date f1117, String f1119, String f1127, String d0100,
-			String isMain, String f1108, String f1120) {
+			Timestamp f1117, String f1119, String f1127, String d0100,
+			String isMain, String f1108, String f1120, String d0101,
+			String f1121) {
 		this.f1100 = f1100;
 		this.a0100 = a0100;
 		this.f1101 = f1101;
@@ -80,6 +83,8 @@ public class F11In implements java.io.Serializable {
 		this.isMain = isMain;
 		this.f1108 = f1108;
 		this.f1120 = f1120;
+		this.d0101 = d0101;
+		this.f1121 = f1121;
 	}
 
 	// Property accessors
@@ -103,11 +108,11 @@ public class F11In implements java.io.Serializable {
 	}
 
 	@Column(name = "F1101", length = 7)
-	public Date getF1101() {
+	public Timestamp getF1101() {
 		return this.f1101;
 	}
 
-	public void setF1101(Date f1101) {
+	public void setF1101(Timestamp f1101) {
 		this.f1101 = f1101;
 	}
 
@@ -139,11 +144,11 @@ public class F11In implements java.io.Serializable {
 	}
 
 	@Column(name = "F1105", length = 7)
-	public Date getF1105() {
+	public Timestamp getF1105() {
 		return this.f1105;
 	}
 
-	public void setF1105(Date f1105) {
+	public void setF1105(Timestamp f1105) {
 		this.f1105 = f1105;
 	}
 
@@ -229,11 +234,11 @@ public class F11In implements java.io.Serializable {
 	}
 
 	@Column(name = "F1117", length = 7)
-	public Date getF1117() {
+	public Timestamp getF1117() {
 		return this.f1117;
 	}
 
-	public void setF1117(Date f1117) {
+	public void setF1117(Timestamp f1117) {
 		this.f1117 = f1117;
 	}
 
@@ -289,6 +294,24 @@ public class F11In implements java.io.Serializable {
 
 	public void setF1120(String f1120) {
 		this.f1120 = f1120;
+	}
+
+	@Column(name = "D0101")
+	public String getD0101() {
+		return this.d0101;
+	}
+
+	public void setD0101(String d0101) {
+		this.d0101 = d0101;
+	}
+
+	@Column(name = "F1121")
+	public String getF1121() {
+		return this.f1121;
+	}
+
+	public void setF1121(String f1121) {
+		this.f1121 = f1121;
 	}
 
 }
