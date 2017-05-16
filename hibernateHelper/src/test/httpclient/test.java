@@ -1,5 +1,6 @@
-package httpclient;
+package test.httpclient;
 
+import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.invoke.SwitchPoint;
