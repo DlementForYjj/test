@@ -15,6 +15,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.regex.Matcher;
@@ -37,34 +40,22 @@ public class test implements Cloneable{
 	}
 	
 	public static void main(String[] args) {
-////		System.out.println(addPlaceHolder());`
-//		double i = 31.8-38.16/2+1+13+2.5-3+13.5+20.5;
-//		System.out.println("I7DrJuMhZ7eEtiuTJsiX81PQjBn1hmPV7TTDTK/aQyP108bMXKx4f5Ur3BTZc9LLOuhUd0HM".length());
-////		System.out.println(getParamNon(3));
-//		Runtime.getRuntime().exit(0);
-//		 System.out.println(Runtime.getRuntime().availableProcessors());
-//		String path = "D:/javaio/D01_Temp.xml";
-//		getXML(path);
+//		System.out.println(Runtime.getRuntime().availableProcessors());
 		
-//		System.out.println("FROM com.rongji.party.entity.CareNeedsApprove t ".length());
+//		String idCard = "";
+//		String regex = "[%--`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]";
+////		String regex = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$|^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$";
+//		System.out.println(Pattern.compile(regex).matcher(idCard).matches());
 		
-//		try {
-//			Class<?> c = Class.forName("test.IntfTest");
-//			List<Class> classes =  getAllClassByInterface(c);
-//			for(Class cls:classes){
-//				System.out.println(cls.getName());
-//			}
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		String regex = "^1?$|^(11+?)\\1+$";
+		StringBuffer sb = new StringBuffer();
+		for (int i = 1; i <= 5000; i++) {
+			sb.append("1");
+			if (!sb.toString().matches(regex)) {
+				System.out.println(i);
+			}
+		}
 		
-//		System.out.println("1bb89eojfm4f0000, 1a5e9mhkrm7q0000, 1a7jbpjbtj1e0000, 1a79lrek9j1e0000, 1a4fc6peorto0000, 1agjl18cnpn30000, 1a7c4psjoj1e0000, 1a9rrof45hd40000, 1atko83a1oqu0000, 1adsai6f77uj0000, 1a7j5pstej1e0000, 1aadcnnelajf0000, 1a7j5q6rfj1e0000, 1a79lgpimj1e0000".split(",").length);
-		
-		
-		Map<String,String> map = new HashMap<String,String>();
-		map.put("a", "c");
-		System.out.println(map.put("a", "b"));
 	}
 	
 	
@@ -495,5 +486,8 @@ public class test implements Cloneable{
 	            }
 	       }
 	    }
+	}
+	public static void printfLength(String s){
+		System.out.println(s.split(",").length);
 	}
 }
