@@ -1,4 +1,4 @@
-package test;
+package test.net;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
