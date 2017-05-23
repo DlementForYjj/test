@@ -9,7 +9,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.codec.Charsets;
@@ -51,6 +53,25 @@ public class JavaIOUtil {
 		}
 		
 		return sb.toString();
+	}
+	public static List<String> readFileList(String pathname){
+		List<String> result = new ArrayList<>();
+		try {
+//			InputStream is = new FileInputStream());
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(pathname)),"gb2312"));
+			String line;
+			while((line = br.readLine())!=null){
+				result.add(line);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	

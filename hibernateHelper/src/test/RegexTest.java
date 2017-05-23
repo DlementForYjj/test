@@ -1,14 +1,21 @@
 package test;
 
-import java.util.regex.Pattern;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.List;
+
+import test.io.JavaIOUtil;
 
 public class RegexTest {
 
 	public static void main(String[] args) {
-		String regex = "(\\w){16}";
-		String input = "吴1";
-		
-		System.out.println(Pattern.compile(regex).matcher(input).matches());
+		List<String> lines = JavaIOUtil.readFileList("D:/javaio/net.txt");
+		for(String line :lines ){
+			System.out.println(RegexUtils.replaceStart(line, "\\d+", ""));
+		}
 	}
+	
+	
+
 	
 }
