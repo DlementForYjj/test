@@ -16,6 +16,8 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +39,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import test.io.JavaIOUtil;
+
 public class test implements Cloneable{
 
 	public String s;
@@ -50,9 +54,8 @@ public class test implements Cloneable{
 //		for(String path:paths){
 //			copyFile(fromPath, path+"\\Jpcap.dll");
 //		}
-		System.out.println("a"=="a");
-		
-		
+//		Map<String, String> map = new HashMap<>();
+//		System.out.println(map);
 		
 		
 //		System.out.println(Runtime.getRuntime().availableProcessors());
@@ -62,9 +65,11 @@ public class test implements Cloneable{
 ////		String regex = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$|^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$";
 //		System.out.println(Pattern.compile(regex).matcher(idCard).matches());
 		
+//		printfFormatSql("D:\\javaio\\test.txt","t.login_name");
+		Date d = null;
 		
-		//求质树
-
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
 		
 		
 	}
@@ -532,6 +537,8 @@ public class test implements Cloneable{
 		
 	}
 	
+	
+	//FIXME 求质数
 //	String regex = "^1?$|^(11+?)\\1+$";
 //	StringBuffer sb = new StringBuffer();
 //	for (int i = 1; i <= 5000; i++) {
@@ -540,4 +547,27 @@ public class test implements Cloneable{
 //			System.out.println(i);
 //		}
 //	}
+	
+	public static void printfFormatSql(String fileName,String columnName){
+		List<String> userIds = JavaIOUtil.readFileList(fileName);
+		StringBuilder sb = new StringBuilder();
+		int splitLength = 500;
+		for(int i=splitLength;i<userIds.size();i+=splitLength){
+			StringBuilder subsb = new StringBuilder();
+			subsb.append(" OR "+columnName+" IN(");
+			for(int j=i-splitLength;j<i;j++){
+				
+				subsb.append(",'");
+				subsb.append(userIds.get(j));
+				subsb.append("'");
+				
+			}
+			subsb.append(") ");
+			sb.append(subsb.toString().replaceFirst(",", ""));
+		}
+		
+		JavaIOUtil.outputFile("D:\\javaio\\result.txt", sb.toString().replaceFirst("OR", ""));
+		
+	}
+	
 }
