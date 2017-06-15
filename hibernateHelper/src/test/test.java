@@ -39,6 +39,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.jacob.activeX.ActiveXComponent;
+import com.jacob.com.ComThread;
+import com.jacob.com.Dispatch;
+import com.jacob.com.Variant;
+
 import test.io.JavaIOUtil;
 
 public class test implements Cloneable{
@@ -66,13 +71,39 @@ public class test implements Cloneable{
 //		System.out.println(Pattern.compile(regex).matcher(idCard).matches());
 		
 //		printfFormatSql("D:\\javaio\\test.txt","t.login_name");
-		Date d = null;
 		
-		Calendar c = Calendar.getInstance();
-		c.setTime(d);
+//		print("D:/test/test.xlsx");
+		prinfTableInfo("D:/javaio/test.txt");
+		
+	}
+	public static void prinfTableInfo(String path){
+		
+		List<String> list =  JavaIOUtil.readFileList(path);
+		Map<String,String> map = new HashMap<>();
+		String key = "";
+		String value = "";
+		for(String s:list){
+			s = s.trim();
+			if(s.startsWith("comm")){
+				key = s.split(" ")[3];
+				key = key.substring(4);
+			}else if(s.startsWith("is")){
+				value = s.split(" ")[1];
+				map.put(key, value);
+			}
+		}
+		
+		for(String s:list){
+			s = s.trim();
+			if(s.startsWith("d16")){
+				System.out.println(s.substring(0, 7).trim()+":"+map.get(s.substring(0, 7).trim()));
+			}
+		}
 		
 		
 	}
+	
+	
 	
 	public static String getParamStr(String[] sr){
 		StringBuilder sb = new StringBuilder();
@@ -569,5 +600,50 @@ public class test implements Cloneable{
 		JavaIOUtil.outputFile("D:\\javaio\\result.txt", sb.toString().replaceFirst("OR", ""));
 		
 	}
+	
+	  public static boolean print(String path){ 
+		  if(path != null){
+		          ComThread.InitSTA(); 
+		          ActiveXComponent xl = new ActiveXComponent("Excel.Application"); 
+		           try { 
+		              // System.out.println("version=" + xl.getProperty("Version")); 
+		                 //不打开文档 
+		                 Dispatch.put(xl, "Visible", new Variant(false)); //new Variant(true)显示文档
+		                 Dispatch workbooks = xl.getProperty("Workbooks").toDispatch(); 
+		                 Dispatch excel=Dispatch.call(workbooks,"Open",path).toDispatch(); 
+		                //调用excel宏的方法(不带参数的宏)需要说明宏所在的文档  
+		                Dispatch.call(xl, "Run", new Variant("test.xls!Sheet1.test"));         
+		                 // 横向打印
+		                // Dispatch currentSheet = Dispatch.get(excel, "ActiveSheet")
+		                // .toDispatch();
+		                // Dispatch pageSetup = Dispatch
+		                // .get(currentSheet, "PageSetup").toDispatch();
+		                 // Dispatch.put(pageSetup, "Orientation", new Variant(2)); //Variant(2)横向打印
+		                 //设置边距
+		                // Dispatch.put(pageSetup,"LeftMargin",0);
+		                // Dispatch.put(pageSetup,"RightMargin",0);
+		                // Dispatch.put(pageSetup,"TopMargin",0);
+		               //  Dispatch.put(pageSetup,"BottomMargin",0);
+		                 //开始打印 
+		                 Dispatch.get(excel,"PrintOut"); 
+		                 //增加以下三行代码解决文件无法删除bug
+		                 Dispatch.call(excel, "save");
+		                 Dispatch.call(excel,  "Close" ,  new  Variant(true)); 
+		                 excel=null;
+
+		                 return true;
+		              } catch (Exception e) { 
+		                  e.printStackTrace(); 
+		                  return false;
+		                } finally { 
+		                    //始终释放资源 
+		                   xl.invoke("Quit", new Variant[] {});
+		                   xl=null;
+		                   ComThread.Release();
+		                   } 
+		    }else {
+		       return false;
+		    }
+		   }  
 	
 }
