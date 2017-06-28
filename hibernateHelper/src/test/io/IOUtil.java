@@ -13,13 +13,18 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.codec.Charsets;
 
-public class JavaIOUtil {
+import test.table.TableUtil;
+
+public class IOUtil {
 
 	public static String FILE_CHARSET = "gb2312";
 	
@@ -48,6 +53,27 @@ public class JavaIOUtil {
 			int i;
 			while((i = br.read())!=-1){
 				sb.append((char)i);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{//FIXME 这边关闭流尚未完成，将就使用
+			
+		}
+		return sb.toString();
+	}
+	public static String readFileToString(String pathname){
+		StringBuilder sb = new StringBuilder();
+		
+		try {
+//			InputStream is = new FileInputStream());
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(pathname)),FILE_CHARSET));
+			String s;
+			while((s = br.readLine())!=null){
+				sb.append(s);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -103,5 +129,48 @@ public class JavaIOUtil {
 		
 		
 	}
+	
+	public static List<String> findSubFileNames(String path){
+		List<String> result = new ArrayList<>();
+		File fileDir=new File(path);
+		File[] files = fileDir.listFiles();
+		for(File file:files){
+			result.add(file.getName());
+		}
+		return result;
+	}
+	
+	
+	
+	/**
+	 * 将数据库的建表语句批量导出，放在一个文件夹下面，这个方法可以他们转换成   表 和 列 映射关系
+	 * NOTED BY @autor YJJ @date 2017年6月26日
+	 */
+	public static Map<String,List<String>> readDBTable(String path){
+		List<String> fileNames = IOUtil.findSubFileNames(path);
+		Map<String, List<String>> map = new HashMap<>();
+		
+		for (String fileName : fileNames) {
+			if (".tab".equals(fileName.substring(fileName.lastIndexOf(".")))) {
+				List<String> colNames = new ArrayList<>();
+				String tableName = fileName.split("\\.")[0];
+				String content = IOUtil.readFile(path + "\\" + fileName);
+				String columnContent = TableUtil.getAreaContent(content, "");
+				String[] columnInfos = columnContent.split(",");
+				for (String columnInfo : columnInfos) {
+					String infoStr = columnInfo.replaceFirst("\\s+", "");
+					String[] infos = infoStr.split("\\s+");
+					colNames.add(infos[0]);
+				}
+
+				map.put(tableName, colNames);
+			}
+		}
+
+		return map;
+		
+	}
+	
+	
 	
 }
