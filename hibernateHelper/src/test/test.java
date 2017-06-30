@@ -1,4 +1,4 @@
-package test;
+	package test;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -84,7 +84,11 @@ public class test implements Cloneable{
 //		}
 //		Matcher m = Pattern.compile("^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$").matcher("370203199105133198");
 //		System.out.println(m.matches());
-		System.out.println(findRetainCols("D:\\javaio\\cs", "D:\\javaio\\dev"));
+//		System.out.println(findRetainCols("D:\\javaio\\cs", "D:\\javaio\\dev"));
+		int i=  printfLength("D0100, D0101,D0107,D0108,D0109,D01_PARENT,D01_PATH,D0121, D0144,D0195,D0193, D0110");
+		for(int a=0;a<i;a++){
+			System.out.print(",'?'");
+		}
 		
 	}
 	
@@ -555,8 +559,9 @@ public class test implements Cloneable{
 	       }
 	    }
 	}
-	public static void printfLength(String s){
+	public static int printfLength(String s){
 		System.out.println(s.split(",").length);
+		return s.split(",").length;
 	}
 	
 	public static void copyFile(String fromPath,String toPath){

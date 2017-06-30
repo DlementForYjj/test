@@ -33,7 +33,7 @@ public class TableUtil {
 	
 	
 	/**
-	 * 利用注释来显示信息,没有注释的将不会显示
+	 * 利用注释来显示信息,用于党统系统，找出特殊的开头
 	 * NOTED BY @autor YJJ @date 2017年6月26日
 	 */
 	public static void prinfTableInfo(String path,String tableStart){
@@ -60,6 +60,30 @@ public class TableUtil {
 		}
 		
 	}
+	
+	/**
+	 * 读取表中的字段备注映射关系
+	 * NOTED BY @autor YJJ @date 2017年6月30日
+	 */
+	public static Map<String,String> getTableRemarks(String path){
+
+		List<String> list =  IOUtil.readFileList(path);
+		Map<String,String> map = new HashMap<>();
+		String key = "";
+		String value = "";
+		for(String s:list){
+			s = s.trim();
+			if(s.startsWith("comm")){
+				key = s.split(" ")[3];
+				key = key.substring(4);
+			}else if(s.startsWith("is")){
+				value = s.split(" ")[1];
+				map.put(key, value);
+			}
+		}
+		return map;
+	}
+	
 	
 	public static List<String> findTableColumns(String fileName){
 		List<String> result = new ArrayList<>();
