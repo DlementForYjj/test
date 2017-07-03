@@ -63,11 +63,12 @@ public class test implements Cloneable{
 		
 		List<TableInfo> tableInfos = IOUtil.readDBTableInfo("D:\\javaio\\party");
 		
-		String from = "";
-		String to = "";
+		String from = "$from";
+		String to = "$to";
 		
 		for(TableInfo table: tableInfos){
 			if(table.getColInfos()!=null&&table.getColInfos().size()>0){
+				
 //				System.out.println(table.getTableName()+":");
 //				System.out.println();
 //				List<ColInfo> colInfos = table.getColInfos();
@@ -77,26 +78,25 @@ public class test implements Cloneable{
 //				System.out.println("+==================+");
 				
 				
-				
 				List<ColInfo> colInfos = table.getColInfos();
-				StringBuilder setSql = new StringBuilder();
 				
 				for(ColInfo col:colInfos){
 					
 					StringBuilder sql = new StringBuilder();
-					sql.append("UPDATE "+ table.getTableName()+" ");
-					setSql.append(" SET ");
-					sql.append(" "+col.getColName()+"='"+to+"' ");
-					sql.append(" WHERE "+col.getColName()+"='"+from+"' ");
+					sql.append("UPDATE "+ table.getTableName().toUpperCase());
+					sql.append(" SET ");
+//					sql.append(col.getColName()+"='"+to+"' ");
+					sql.append(col.getColName()+"='"+to+"'||substr("+col.getColName()+",(length('"+from+"')+1))");
+					sql.append(" WHERE "+col.getColName()+" like '"+from+"%'; ");
+					
+					System.out.println(sql.toString());
 				}
-//				
-				
-				
-				
 				
 			}
 		}
-		
+//		String input = IOUtil.readFileToString("D:\\javaio\\party\\pub_user.tab");
+//		Map<String,String> map = TableUtil.findColRemarks(input);
+//		System.out.println(map);
 	}
 	
 	public static Map<String,List<String>> findRetainCols(String path1,String path2){

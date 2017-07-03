@@ -68,6 +68,10 @@ public class IOUtil {
 		}
 		return sb.toString();
 	}
+	/**
+	 * 这个方法主要是把file里面的内容连成一句
+	 * NOTED BY @autor YJJ @date 2017年7月3日
+	 */
 	public static String readFileToString(String pathname){
 		StringBuilder sb = new StringBuilder();
 		
@@ -89,6 +93,7 @@ public class IOUtil {
 		}
 		return sb.toString();
 	}
+	
 	public static List<String> readFileList(String pathname){
 		List<String> result = new ArrayList<>();
 		try {
@@ -188,21 +193,22 @@ public class IOUtil {
 				table.setTableName(tableName);
 				table.setColNameRegex(".*org_code.*");
 				String tableContent = IOUtil.readFile(path + "\\" + fileName);
-				String colContent = TableUtil.getAreaContent(tableContent, "");
-				String[] columnInfos = colContent.split(",");
-				//FIXME 由于这边的正则匹配功能暂时没用完善
-				Map<String,String> remarkMap = TableUtil.getTableRemarks(path + "\\" + fileName);
-				
-				for (String columnInfo : columnInfos) {
-					String infoStr = columnInfo.replaceFirst("\\s+", "");
-					String[] infos = infoStr.split("\\s+");
-					String colName = infos[0];
-					
-					ColInfo colInfo = new ColInfo();
-					colInfo.setColName(colName);
-					colInfo.setColRemark(remarkMap.get(colName)!=null?remarkMap.get(colName):"");
-					table.addCol(colInfo);
-				}
+				TableUtil.fillColInfos(tableContent, table);;
+//				String colContent = TableUtil.getAreaContent(tableContent, "");
+//				String[] columnInfos = colContent.split(",");
+//				
+//				Map<String,String> remarkMap = TableUtil.findColRemarks(tableContent);
+//				
+//				for (String columnInfo : columnInfos) {
+//					String infoStr = columnInfo.replaceFirst("\\s+", "");
+//					String[] infos = infoStr.split("\\s+");
+//					String colName = infos[0];
+//					
+//					ColInfo colInfo = new ColInfo();
+//					colInfo.setColName(colName);
+//					colInfo.setColRemark(remarkMap.get(colName)!=null?remarkMap.get(colName):"");
+//					table.addCol(colInfo);
+//				}
 				
 				tableInfos.add(table);
 				
