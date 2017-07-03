@@ -74,8 +74,12 @@ public class TableUtil {
 		for(String s:list){
 			s = s.trim();
 			if(s.startsWith("comm")){
-				key = s.split(" ")[3];
-				key = key.substring(4);
+				if(s.split(" ").length>3){
+					key = s.split(" ")[3];
+					if(key.lastIndexOf(".")!=-1){
+						key = key.substring(key.lastIndexOf(".")+1);
+					}
+				}
 			}else if(s.startsWith("is")){
 				value = s.split(" ")[1];
 				map.put(key, value);
@@ -87,7 +91,7 @@ public class TableUtil {
 	
 	public static List<String> findTableColumns(String fileName){
 		List<String> result = new ArrayList<>();
-		String input = IOUtil.readFileToString("D:/javaio/test.txt");
+		String input = IOUtil.readFileToString(fileName);
 		String[] columnInfos = getAreaContent(input, "create table").split(",");
 		for(String info:columnInfos){
 			info = info.replaceFirst("\\s+","");

@@ -1,4 +1,4 @@
-	package test;
+package test;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -40,12 +40,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import antlr.Utils;
+
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComThread;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
 
 import test.io.IOUtil;
+import test.table.ColInfo;
+import test.table.TableInfo;
+import test.table.TableUtil;
 
 public class test implements Cloneable{
 
@@ -56,38 +61,40 @@ public class test implements Cloneable{
 	
 	public static void main(String[] args) {
 		
-//		Map<String,List<String>> map = findRetainCols("D:\\javaio\\350901", "D:\\javaio\\350902");
-//		for(Entry<String,List<String>> entry:map.entrySet()){
-//			List<String> cols = entry.getValue();
-//			if(cols!=null&&cols.size()>0){
-//				StringBuilder sql = new StringBuilder();
-//				sql.append("INSERT INTO "+ entry.getKey()+" t1 ");
-//				sql.append("(");
-//				StringBuilder colStr = new StringBuilder();
-//				for(String col:cols){
-//					colStr.append(",t1."+col);
+		List<TableInfo> tableInfos = IOUtil.readDBTableInfo("D:\\javaio\\party");
+		
+		String from = "";
+		String to = "";
+		
+		for(TableInfo table: tableInfos){
+			if(table.getColInfos()!=null&&table.getColInfos().size()>0){
+//				System.out.println(table.getTableName()+":");
+//				System.out.println();
+//				List<ColInfo> colInfos = table.getColInfos();
+//				for(ColInfo info:colInfos){
+//					System.out.println(info.getColName()+"	"+info.getColRemark());
 //				}
-//				sql.append(colStr.toString().replaceFirst(",", ""));
-//				sql.append(") ");
-//				sql.append("(SELECT ");
-//				StringBuilder colStr2 = new StringBuilder();
-//				for(String col:cols){
-//					colStr2.append(",t2."+col);
-//				}
-//				sql.append(colStr2.toString().replaceFirst(",", ""));
-//				sql.append(" FROM ");
-//				sql.append(" pam350901."+entry.getKey()+" t2");
-//				sql.append(")");
-//				System.out.println(sql.toString()+";");
-//			}
-//			
-//		}
-//		Matcher m = Pattern.compile("^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$").matcher("370203199105133198");
-//		System.out.println(m.matches());
-//		System.out.println(findRetainCols("D:\\javaio\\cs", "D:\\javaio\\dev"));
-		int i=  printfLength("D0100, D0101,D0107,D0108,D0109,D01_PARENT,D01_PATH,D0121, D0144,D0195,D0193, D0110");
-		for(int a=0;a<i;a++){
-			System.out.print(",'?'");
+//				System.out.println("+==================+");
+				
+				
+				
+				List<ColInfo> colInfos = table.getColInfos();
+				StringBuilder setSql = new StringBuilder();
+				
+				for(ColInfo col:colInfos){
+					
+					StringBuilder sql = new StringBuilder();
+					sql.append("UPDATE "+ table.getTableName()+" ");
+					setSql.append(" SET ");
+					sql.append(" "+col.getColName()+"='"+to+"' ");
+					sql.append(" WHERE "+col.getColName()+"='"+from+"' ");
+				}
+//				
+				
+				
+				
+				
+			}
 		}
 		
 	}
