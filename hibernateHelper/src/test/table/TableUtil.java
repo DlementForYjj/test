@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -106,8 +107,8 @@ public class TableUtil {
 	
 	
 	/**
-	 * 截取目标域里面的内容
-	 * NOTED BY @autor YJJ @date 2017年6月26日
+	 * 截取目标域里面的内容 获取 areaName 后面第一个括号内的内容 
+	 * NOTED BY @autor YJJ @date 2017年6月26日 
 	 */
 	public static String getAreaContent(String input,String areaName){
 		
@@ -169,8 +170,57 @@ public class TableUtil {
 		
 		return map;
 	}
-
 	
+	/**
+	 * 查找表中的主键
+	 * @param sqls
+	 * @param info
+	 */
+	public static void fillTablePrimaryKeyList(List<String> sqls,TableInfo info){
+		String primaryKeyStart = "alter table";
+		boolean find = false;
+		String pkSql = "";
+		for(String sql:sqls){
+			if(find){
+				pkSql+=sql;
+				List<String> list = info.getPrimaryKeyList();
+				if(list==null){
+					list= new ArrayList<>();
+				}
+				list.add(pkSql+";");
+				find = false;
+			}
+			
+			if(sql.startsWith(primaryKeyStart)){
+				pkSql+=sql;
+				find = true;
+			}
+		}
+		
+	}
+	
+	/**
+	 * 查找表中的索引
+	 * @param sqls
+	 * @param info
+	 */
+	public static void fillTableIndexList(List<String> sqls,TableInfo info){
+		String indexStart = "create index";
+		String pkSql = "";
+		for(String sql:sqls){
+			if(sql.startsWith(indexStart)){
+				pkSql+=sql;
+				List<String> list = info.getIndexList();
+				if(list==null){
+					list= new ArrayList<>();
+				}
+				list.add(pkSql+";");
+				pkSql = "";
+			}
+		}
+		
+	}
+
 	
 	/*************************关键的工具 end***********************************/
 	
@@ -216,7 +266,25 @@ public class TableUtil {
 		return result;
 	}
 	
-	
+	public static void printTableColDiff(String path,String tableNameA,String tableNameB){
+		Map<String,TableInfo> map = IOUtil.readDBTableInfoMap(path);
+		
+		TableInfo pubUserT = map.get(tableNameA);
+		TableInfo dwUserT = map.get(tableNameB);
+		Map<String,ColInfo> pColMap = pubUserT.getColInfoMap();
+		Map<String,ColInfo> dColMap = dwUserT.getColInfoMap();
+		for(Entry<String,ColInfo> pE: pColMap.entrySet()){
+			if(dColMap.containsKey(pE.getKey())){
+				String pColType = pE.getValue().getColType();
+				String dColType = dColMap.get(pE.getKey()).getColType();
+				if(!pE.getValue().getColType().equals(dColMap.get(pE.getKey()).getColType())){
+					System.out.println(pE.getKey()+","+pColType+","+dColType);
+				}
+				
+			}
+			
+		}
+	}
 	
 	
 	

@@ -60,43 +60,17 @@ public class test implements Cloneable{
 	}
 	
 	public static void main(String[] args) {
-		
-		List<TableInfo> tableInfos = IOUtil.readDBTableInfo("D:\\javaio\\party");
-		
-		String from = "$from";
-		String to = "$to";
-		
-		for(TableInfo table: tableInfos){
-			if(table.getColInfos()!=null&&table.getColInfos().size()>0){
-				
-//				System.out.println(table.getTableName()+":");
-//				System.out.println();
-//				List<ColInfo> colInfos = table.getColInfos();
-//				for(ColInfo info:colInfos){
-//					System.out.println(info.getColName()+"	"+info.getColRemark());
-//				}
-//				System.out.println("+==================+");
-				
-				
-				List<ColInfo> colInfos = table.getColInfos();
-				
-				for(ColInfo col:colInfos){
-					
-					StringBuilder sql = new StringBuilder();
-					sql.append("UPDATE "+ table.getTableName().toUpperCase());
-					sql.append(" SET ");
-//					sql.append(col.getColName()+"='"+to+"' ");
-					sql.append(col.getColName()+"='"+to+"'||substr("+col.getColName()+",(length('"+from+"')+1))");
-					sql.append(" WHERE "+col.getColName()+" like '"+from+"%'; ");
-					
-					System.out.println(sql.toString());
-				}
-				
+		List<TableInfo> tables = IOUtil.readDBTableInfo("d:\\javaio\\table");
+		for(TableInfo table:tables){
+//			System.out.println("---------"+entry.getKey()+"-------------");
+			if(table.getPrimaryKeyList()!=null&&table.getPrimaryKeyList().size()>0){
+				System.out.println(table.getPrimaryKeyList().get(0));
+			}
+			for(String s:table.getIndexList()){
+				System.out.println(s);
 			}
 		}
-//		String input = IOUtil.readFileToString("D:\\javaio\\party\\pub_user.tab");
-//		Map<String,String> map = TableUtil.findColRemarks(input);
-//		System.out.println(map);
+		
 	}
 	
 	public static Map<String,List<String>> findRetainCols(String path1,String path2){
@@ -126,7 +100,26 @@ public class test implements Cloneable{
 		return map;
 	}
 	
-	
+	/**
+	 * 
+	 * @param typeId
+	 * @param codeName
+	 * @param options 
+	 */
+	public static void createCodeSql(String typeId,String typeName,List<Object[]> options){
+		
+		String pubCodeTypeSql = "INSERT INTO PUB_CODE_TYPE(TYPE_ID,TYPE_NAME) VALUES('"+typeId+"','"+typeName+"');";
+		System.out.println(pubCodeTypeSql);
+		int order = 0;
+		for(Object[] o :options){
+			String codeValue = (String) o[0];
+			String codeName = (String) o[1];
+			String pubCodeSql = "INSERT INTO PUB_CODE(TYPE_ID,CODE_VALUE,CODE_NAME,CODE_ORDER,FLAG) VALUES('"+typeId+"','"+codeValue+"','"+codeName+"','"+String.valueOf(order)+"','0');";
+			System.out.println(pubCodeSql);
+			order++;
+		}
+		
+	}
 	
 	public static String getParamStr(String[] sr){
 		StringBuilder sb = new StringBuilder();

@@ -14,6 +14,8 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -145,6 +147,7 @@ public class IOUtil {
 		for(File file:files){
 			result.add(file.getName());
 		}
+//		Collections.sort(result);
 		return result;
 	}
 	
@@ -191,33 +194,28 @@ public class IOUtil {
 				String tableName = fileName.split("\\.")[0];
 				TableInfo table = new TableInfo();
 				table.setTableName(tableName);
-				table.setColNameRegex(".*org_code.*");
 				String tableContent = IOUtil.readFile(path + "\\" + fileName);
-				TableUtil.fillColInfos(tableContent, table);;
-//				String colContent = TableUtil.getAreaContent(tableContent, "");
-//				String[] columnInfos = colContent.split(",");
-//				
-//				Map<String,String> remarkMap = TableUtil.findColRemarks(tableContent);
-//				
-//				for (String columnInfo : columnInfos) {
-//					String infoStr = columnInfo.replaceFirst("\\s+", "");
-//					String[] infos = infoStr.split("\\s+");
-//					String colName = infos[0];
-//					
-//					ColInfo colInfo = new ColInfo();
-//					colInfo.setColName(colName);
-//					colInfo.setColRemark(remarkMap.get(colName)!=null?remarkMap.get(colName):"");
-//					table.addCol(colInfo);
-//				}
-				
+				TableUtil.fillColInfos(tableContent, table);
+				TableUtil.fillTablePrimaryKeyList(IOUtil.readFileList(path + "\\" + fileName), table);
+				TableUtil.fillTableIndexList(IOUtil.readFileList(path + "\\" + fileName), table);
 				tableInfos.add(table);
-				
 			}
 		}
 
 		return tableInfos;
 		
 	}
-	
+	/**
+	 * 将数据库的建表语句批量导出，放在一个文件夹下面，这个方法可以他们转换成   表 和 列 映射关系
+	 * NOTED BY @autor YJJ @date 2017年6月26日
+	 */
+	public static Map<String,TableInfo> readDBTableInfoMap(String path){
+		List<TableInfo> tableInfos = readDBTableInfo(path);
+		Map<String,TableInfo> map = new HashMap<>();
+		for(TableInfo t:tableInfos){
+			map.put(t.getTableName(), t);
+		}
+		return map;
+	}
 	
 }

@@ -18,9 +18,10 @@ public class TableInfo {
 	
 	String tableName;
 	List<ColInfo> colInfos = new ArrayList<>();
-
+	Map<String,ColInfo> colInfoMap = new HashMap<String,ColInfo>();
 	String colNameRegex;
-	
+	List<String> primaryKeyList = new ArrayList<>();
+	List<String> indexList = new ArrayList<>();
 	
 	public TableInfo(){
 		
@@ -44,7 +45,9 @@ public class TableInfo {
 	public List<ColInfo> getColInfos() {
 		return colInfos;
 	}
-
+	public Map<String,ColInfo> getColInfoMap() {
+		return colInfoMap;
+	}
 	public void setColInfos(List<ColInfo> colInfos) {
 		this.colInfos = colInfos;
 	}
@@ -59,9 +62,11 @@ public class TableInfo {
 		if(colNameRegex!=null&&!"".equals(colNameRegex.trim())){
 			Matcher m = Pattern.compile(colNameRegex).matcher(info.getColName());
 			if(m.matches()){
+				colInfoMap.put(info.getColName(), info);
 				colInfos.add(info);
 			}
 		}else{
+			colInfoMap.put(info.getColName(), info);
 			colInfos.add(info);
 		}
 	}
@@ -100,6 +105,27 @@ public class TableInfo {
 
 	public void setColNameRegex(String colNameRegex) {
 		this.colNameRegex = colNameRegex;
+	}
+
+
+	public void setColInfoMap(Map<String, ColInfo> colInfoMap) {
+		this.colInfoMap = colInfoMap;
+	}
+
+	public List<String> getPrimaryKeyList() {
+		return primaryKeyList;
+	}
+
+	public void setPrimaryKeyList(List<String> primaryKeyList) {
+		this.primaryKeyList = primaryKeyList;
+	}
+
+	public List<String> getIndexList() {
+		return indexList;
+	}
+
+	public void setIndexList(List<String> indexList) {
+		this.indexList = indexList;
 	}
 
 	
