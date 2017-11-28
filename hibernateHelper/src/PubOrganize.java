@@ -10,7 +10,7 @@ import javax.persistence.Table;
  * PubOrganize entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "PUB_ORGANIZE")
+@Table(name = "PUB_ORGANIZE", schema = "PARTY")
 public class PubOrganize implements java.io.Serializable {
 
 	// Fields
@@ -81,6 +81,12 @@ public class PubOrganize implements java.io.Serializable {
 	private String orgProofResult;
 	private String isVirtualNode;
 	private String isExpedite;
+	private Integer subCount;
+	private Integer userCount;
+	private String parentCode;
+	private String highSecret;
+	private String orgRoot;
+	private String isInstitute;
 
 	// Constructors
 
@@ -116,7 +122,9 @@ public class PubOrganize implements java.io.Serializable {
 			String orgCodeNew, String orgJuris, String isCommunity,
 			String hasUnitCode, String orgCategoryNew, String unitCodeReson,
 			String orgProof, String orgProofResult, String isVirtualNode,
-			String isExpedite) {
+			String isExpedite, Integer subCount, Integer userCount,
+			String parentCode, String highSecret, String orgRoot,
+			String isInstitute) {
 		this.orgCode = orgCode;
 		this.orgName = orgName;
 		this.orgCategory = orgCategory;
@@ -183,6 +191,12 @@ public class PubOrganize implements java.io.Serializable {
 		this.orgProofResult = orgProofResult;
 		this.isVirtualNode = isVirtualNode;
 		this.isExpedite = isExpedite;
+		this.subCount = subCount;
+		this.userCount = userCount;
+		this.parentCode = parentCode;
+		this.highSecret = highSecret;
+		this.orgRoot = orgRoot;
+		this.isInstitute = isInstitute;
 	}
 
 	// Property accessors
@@ -779,6 +793,60 @@ public class PubOrganize implements java.io.Serializable {
 
 	public void setIsExpedite(String isExpedite) {
 		this.isExpedite = isExpedite;
+	}
+
+	@Column(name = "SUB_COUNT", precision = 9, scale = 0)
+	public Integer getSubCount() {
+		return this.subCount;
+	}
+
+	public void setSubCount(Integer subCount) {
+		this.subCount = subCount;
+	}
+
+	@Column(name = "USER_COUNT", precision = 9, scale = 0)
+	public Integer getUserCount() {
+		return this.userCount;
+	}
+
+	public void setUserCount(Integer userCount) {
+		this.userCount = userCount;
+	}
+
+	@Column(name = "PARENT_CODE", length = 30)
+	public String getParentCode() {
+		return this.parentCode;
+	}
+
+	public void setParentCode(String parentCode) {
+		this.parentCode = parentCode;
+	}
+
+	@Column(name = "HIGH_SECRET", length = 1)
+	public String getHighSecret() {
+		return this.highSecret;
+	}
+
+	public void setHighSecret(String highSecret) {
+		this.highSecret = highSecret;
+	}
+
+	@Column(name = "ORG_ROOT", length = 30)
+	public String getOrgRoot() {
+		return this.orgRoot;
+	}
+
+	public void setOrgRoot(String orgRoot) {
+		this.orgRoot = orgRoot;
+	}
+
+	@Column(name = "IS_INSTITUTE", length = 1)
+	public String getIsInstitute() {
+		return this.isInstitute;
+	}
+
+	public void setIsInstitute(String isInstitute) {
+		this.isInstitute = isInstitute;
 	}
 
 }

@@ -59,19 +59,43 @@ public class test implements Cloneable{
 		return s;
 	}
 	
+	public static final String DEFAULT_FILE_PATH = "D:/javaio/";
+	
+	
 	public static void main(String[] args) {
-		List<TableInfo> tables = IOUtil.readDBTableInfo("d:\\javaio\\table");
-		for(TableInfo table:tables){
-//			System.out.println("---------"+entry.getKey()+"-------------");
-			if(table.getPrimaryKeyList()!=null&&table.getPrimaryKeyList().size()>0){
-				System.out.println(table.getPrimaryKeyList().get(0));
-			}
-			for(String s:table.getIndexList()){
-				System.out.println(s);
-			}
+		
+		try{
+		String s = null;
+		s.toString();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		
-		
+//		List<String> results = IOUtil.readFileList("D:\\javaio\\test.txt");
+//		for(String line:results){
+//			String sql = "SELECT COUNT(*) FROM PUB_USER T WHERE T."+line+ " IS NULL AND T.USER_CATEGORY IN ('05','06') AND T.USER_LEVEL ='0' AND T.ORG_CODE LIKE 'C5%' AND NOT EXISTS(SELECT T1.USER_ID FROM MAN_HISTORY_MEMBER T1 WHERE T1.USER_ID = T.USER_ID AND T1.DATA_STATUS='3' );";
+//			System.out.println(sql);
+//		}
+//		List<String> results = IOUtil.readFileList("D:\\javaio\\test.txt");
+//		for(String line:results){
+//			String s = "SELECT t.*,t2.org_name FROM(";
+//			String innerSql = "SELECT T.USER_NAME,T.ID_CARD,T.USER_CATEGORY,T.ORG_CODE FROM PUB_USER T WHERE T."+line+ " IS NULL AND T.USER_CATEGORY IN ('05','06') AND T.USER_LEVEL ='0' AND T.ORG_CODE LIKE 'C5%' AND NOT EXISTS(SELECT T1.USER_ID FROM MAN_HISTORY_MEMBER T1 WHERE T1.USER_ID = T.USER_ID AND T1.DATA_STATUS='3' )";
+//			String e = ") t  LEFT JOIN PUB_ORGANIZE T2 ON T.ORG_CODE = T2.ORG_CODE;";
+//			System.out.println(s+innerSql+e);
+//		}
+//		List<String> results = IOUtil.readFileList("D:\\javaio\\test.txt");
+//		for(String line:results){
+//			String innerSql = "SELECT T.ORG_CODE,T.ORG_NAME FROM PUB_ORGANIZE T WHERE T."+line+ " IS NULL AND T.ORG_STATUS = '0' AND T.IS_VIRTUAL_NODE ='0';";
+//			System.out.println(innerSql);
+//		}
+		//id 匹配
+//		List<String> flowCodes = IOUtil.readFileList(DEFAULT_FILE_PATH+"test.txt");
+//		List<String> ids = IOUtil.readFileList(DEFAULT_FILE_PATH+"ids.txt");
+//		int idIndex= 0;
+//		for(String flowCode:flowCodes){
+//			String sql = "insert into flow_info(data_id,flow_code,org_code) values('"+ids.get(idIndex)+"','"+flowCode.split("\t")[1]+"','C50');";
+//			System.out.println(sql);
+//			idIndex++;
+//		}
 
 		
 	}
@@ -103,26 +127,7 @@ public class test implements Cloneable{
 		return map;
 	}
 	
-	/**
-	 * 
-	 * @param typeId
-	 * @param codeName
-	 * @param options 
-	 */
-	public static void createCodeSql(String typeId,String typeName,List<Object[]> options){
-		
-		String pubCodeTypeSql = "INSERT INTO PUB_CODE_TYPE(TYPE_ID,TYPE_NAME) VALUES('"+typeId+"','"+typeName+"');";
-		System.out.println(pubCodeTypeSql);
-		int order = 0;
-		for(Object[] o :options){
-			String codeValue = (String) o[0];
-			String codeName = (String) o[1];
-			String pubCodeSql = "INSERT INTO PUB_CODE(TYPE_ID,CODE_VALUE,CODE_NAME,CODE_ORDER,FLAG) VALUES('"+typeId+"','"+codeValue+"','"+codeName+"','"+String.valueOf(order)+"','0');";
-			System.out.println(pubCodeSql);
-			order++;
-		}
-		
-	}
+
 	
 	public static String getParamStr(String[] sr){
 		StringBuilder sb = new StringBuilder();

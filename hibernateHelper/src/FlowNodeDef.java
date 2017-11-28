@@ -21,6 +21,7 @@ public class FlowNodeDef implements java.io.Serializable {
 	private Integer nodeOrder;
 	private String nodeName;
 	private String needRepeat;
+	private String isReport;
 
 	// Constructors
 
@@ -40,7 +41,7 @@ public class FlowNodeDef implements java.io.Serializable {
 	/** full constructor */
 	public FlowNodeDef(String defId, String flowCode, String orgCode,
 			String flowNode, Integer nodeOrder, String nodeName,
-			String needRepeat) {
+			String needRepeat, String isReport) {
 		this.defId = defId;
 		this.flowCode = flowCode;
 		this.orgCode = orgCode;
@@ -48,6 +49,7 @@ public class FlowNodeDef implements java.io.Serializable {
 		this.nodeOrder = nodeOrder;
 		this.nodeName = nodeName;
 		this.needRepeat = needRepeat;
+		this.isReport = isReport;
 	}
 
 	// Property accessors
@@ -113,6 +115,15 @@ public class FlowNodeDef implements java.io.Serializable {
 
 	public void setNeedRepeat(String needRepeat) {
 		this.needRepeat = needRepeat;
+	}
+
+	@Column(name = "IS_REPORT", length = 1)
+	public String getIsReport() {
+		return this.isReport;
+	}
+
+	public void setIsReport(String isReport) {
+		this.isReport = isReport;
 	}
 
 }

@@ -32,7 +32,7 @@ public class OrgElection implements java.io.Serializable {
 	private String electionSituation;
 	private String isDispatch;
 	private Date beforeElectionDeadline;
-	private String electionDeadline;
+	private Date electionDeadline;
 	private String electionYears;
 
 	// Constructors
@@ -54,7 +54,7 @@ public class OrgElection implements java.io.Serializable {
 			String isAnnualElection, String isConvened,
 			String isEstablishConnectOrg, String electionSituation,
 			String isDispatch, Date beforeElectionDeadline,
-			String electionDeadline, String electionYears) {
+			Date electionDeadline, String electionYears) {
 		this.electionId = electionId;
 		this.electionTerm = electionTerm;
 		this.orgCode = orgCode;
@@ -231,12 +231,12 @@ public class OrgElection implements java.io.Serializable {
 		this.beforeElectionDeadline = beforeElectionDeadline;
 	}
 
-	@Column(name = "ELECTION_DEADLINE", length = 6)
-	public String getElectionDeadline() {
+	@Column(name = "ELECTION_DEADLINE", length = 7)
+	public Date getElectionDeadline() {
 		return this.electionDeadline;
 	}
 
-	public void setElectionDeadline(String electionDeadline) {
+	public void setElectionDeadline(Date electionDeadline) {
 		this.electionDeadline = electionDeadline;
 	}
 

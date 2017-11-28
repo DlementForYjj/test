@@ -2,9 +2,11 @@ package test.table;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,23 +16,6 @@ public class TableUtil {
 
 	
 	public static void main(String[] args) {
-		String path = "D:\\javaio\\table";
-		List<String> fileNames = IOUtil.findSubFileNames(path);
-		Map<String,List<String>> map = new HashMap<>();
-		
-		for(String fileName:fileNames){
-			List<String> colNames = new ArrayList<>();
-			String tableName = fileName.split(",")[0];
-			String content = IOUtil.readFile(path+"\\"+fileName);
-			String columnContent = getAreaContent(content, "");
-			String[] columnInfos = columnContent.split(",");
-			for(String columnInfo:columnInfos){
-				String infoStr = columnInfo.replaceFirst("\\s+", "");
-				String[] infos = infoStr.split("\\s+");
-				colNames.add(infos[0]);
-			}
-			map.put(tableName, colNames);
-		}
 	}
 	
 	/***************************关键的工具 start******************************************/
