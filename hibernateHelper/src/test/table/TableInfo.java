@@ -7,9 +7,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import test.io.IOUtil;
-import antlr.Utils;
-
 public class TableInfo {
 	//FIXME 支持正则匹配
 	//FIXME 支持直接通过文件名实例化
