@@ -87,6 +87,8 @@ public class PubOrganize implements java.io.Serializable {
 	private String highSecret;
 	private String orgRoot;
 	private String isInstitute;
+	private String isFuncationOrg;
+	private String isCombinedOrg;
 
 	// Constructors
 
@@ -124,7 +126,7 @@ public class PubOrganize implements java.io.Serializable {
 			String orgProof, String orgProofResult, String isVirtualNode,
 			String isExpedite, Integer subCount, Integer userCount,
 			String parentCode, String highSecret, String orgRoot,
-			String isInstitute) {
+			String isInstitute, String isFuncationOrg, String isCombinedOrg) {
 		this.orgCode = orgCode;
 		this.orgName = orgName;
 		this.orgCategory = orgCategory;
@@ -197,6 +199,8 @@ public class PubOrganize implements java.io.Serializable {
 		this.highSecret = highSecret;
 		this.orgRoot = orgRoot;
 		this.isInstitute = isInstitute;
+		this.isFuncationOrg = isFuncationOrg;
+		this.isCombinedOrg = isCombinedOrg;
 	}
 
 	// Property accessors
@@ -847,6 +851,24 @@ public class PubOrganize implements java.io.Serializable {
 
 	public void setIsInstitute(String isInstitute) {
 		this.isInstitute = isInstitute;
+	}
+
+	@Column(name = "IS_FUNCATION_ORG", length = 1)
+	public String getIsFuncationOrg() {
+		return this.isFuncationOrg;
+	}
+
+	public void setIsFuncationOrg(String isFuncationOrg) {
+		this.isFuncationOrg = isFuncationOrg;
+	}
+
+	@Column(name = "IS_COMBINED_ORG", length = 1)
+	public String getIsCombinedOrg() {
+		return this.isCombinedOrg;
+	}
+
+	public void setIsCombinedOrg(String isCombinedOrg) {
+		this.isCombinedOrg = isCombinedOrg;
 	}
 
 }

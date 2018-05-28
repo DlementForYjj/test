@@ -46,8 +46,7 @@ public class MyRSA {
 
         // 解密
         PrivateKey privateKey = restorePrivateKey(keyMap.get(PRIVATE_KEY));
-        System.out.println("RSA decoded: "
-                + RSADecode(privateKey, encodedText));
+        System.out.println("RSA decoded: "+ RSADecode(privateKey, encodedText));
     }
 
     /**

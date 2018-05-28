@@ -36,6 +36,17 @@ public class PubUserExt implements java.io.Serializable {
 	private String punish;
 	private String archiveList;
 	private String archivePerson;
+	private Date applyerTime;
+	private Date activeTime;
+	private Date deveMemberTime;
+	private Date archiveTime;
+	private Date preCheckTime;
+	private String preCheckUserId;
+	private Date finalCheckTime;
+	private String finalCheckUserId;
+	private String checkUserId;
+	private String finalCheckReason;
+	private String probReason;
 
 	// Constructors
 
@@ -55,7 +66,12 @@ public class PubUserExt implements java.io.Serializable {
 			String birthPlace, String education, Date joinYouthTime,
 			Date firstSendApply, Date workTime, String specialty,
 			String youth, String otherparty, String political, String reward,
-			String punish, String archiveList, String archivePerson) {
+			String punish, String archiveList, String archivePerson,
+			Date applyerTime, Date activeTime,
+			Date deveMemberTime, Date archiveTime,
+			Date preCheckTime, String preCheckUserId,
+			Date finalCheckTime, String finalCheckUserId,
+			String checkUserId, String finalCheckReason, String probReason) {
 		this.userId = userId;
 		this.fltPaperNum = fltPaperNum;
 		this.isRepresent = isRepresent;
@@ -77,6 +93,17 @@ public class PubUserExt implements java.io.Serializable {
 		this.punish = punish;
 		this.archiveList = archiveList;
 		this.archivePerson = archivePerson;
+		this.applyerTime = applyerTime;
+		this.activeTime = activeTime;
+		this.deveMemberTime = deveMemberTime;
+		this.archiveTime = archiveTime;
+		this.preCheckTime = preCheckTime;
+		this.preCheckUserId = preCheckUserId;
+		this.finalCheckTime = finalCheckTime;
+		this.finalCheckUserId = finalCheckUserId;
+		this.checkUserId = checkUserId;
+		this.finalCheckReason = finalCheckReason;
+		this.probReason = probReason;
 	}
 
 	// Property accessors
@@ -268,6 +295,105 @@ public class PubUserExt implements java.io.Serializable {
 
 	public void setArchivePerson(String archivePerson) {
 		this.archivePerson = archivePerson;
+	}
+
+	@Column(name = "APPLYER_TIME", length = 7)
+	public Date getApplyerTime() {
+		return this.applyerTime;
+	}
+
+	public void setApplyerTime(Date applyerTime) {
+		this.applyerTime = applyerTime;
+	}
+
+	@Column(name = "ACTIVE_TIME", length = 7)
+	public Date getActiveTime() {
+		return this.activeTime;
+	}
+
+	public void setActiveTime(Date activeTime) {
+		this.activeTime = activeTime;
+	}
+
+	@Column(name = "DEVE_MEMBER_TIME", length = 7)
+	public Date getDeveMemberTime() {
+		return this.deveMemberTime;
+	}
+
+	public void setDeveMemberTime(Date deveMemberTime) {
+		this.deveMemberTime = deveMemberTime;
+	}
+
+	@Column(name = "ARCHIVE_TIME", length = 7)
+	public Date getArchiveTime() {
+		return this.archiveTime;
+	}
+
+	public void setArchiveTime(Date archiveTime) {
+		this.archiveTime = archiveTime;
+	}
+
+	@Column(name = "PRE_CHECK_TIME", length = 7)
+	public Date getPreCheckTime() {
+		return this.preCheckTime;
+	}
+
+	public void setPreCheckTime(Date preCheckTime) {
+		this.preCheckTime = preCheckTime;
+	}
+
+	@Column(name = "PRE_CHECK_USER_ID", length = 16)
+	public String getPreCheckUserId() {
+		return this.preCheckUserId;
+	}
+
+	public void setPreCheckUserId(String preCheckUserId) {
+		this.preCheckUserId = preCheckUserId;
+	}
+
+	@Column(name = "FINAL_CHECK_TIME", length = 7)
+	public Date getFinalCheckTime() {
+		return this.finalCheckTime;
+	}
+
+	public void setFinalCheckTime(Date finalCheckTime) {
+		this.finalCheckTime = finalCheckTime;
+	}
+
+	@Column(name = "FINAL_CHECK_USER_ID", length = 16)
+	public String getFinalCheckUserId() {
+		return this.finalCheckUserId;
+	}
+
+	public void setFinalCheckUserId(String finalCheckUserId) {
+		this.finalCheckUserId = finalCheckUserId;
+	}
+
+	@Column(name = "CHECK_USER_ID", length = 16)
+	public String getCheckUserId() {
+		return this.checkUserId;
+	}
+
+	public void setCheckUserId(String checkUserId) {
+		this.checkUserId = checkUserId;
+	}
+
+	@Column(name = "FINAL_CHECK_REASON", length = 4000)
+	public String getFinalCheckReason() {
+		return this.finalCheckReason;
+	}
+
+	public void setFinalCheckReason(String finalCheckReason) {
+		this.finalCheckReason = finalCheckReason;
+	}
+
+	@Column(name = "PROB_REASON", length = 2000)
+	public String getProbReason() {
+		return this.probReason;
+	}
+
+	public void setProbReason(String probReason) {
+		this.probReason = probReason;
 	}
 
 }

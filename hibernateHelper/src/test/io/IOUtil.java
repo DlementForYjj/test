@@ -31,22 +31,27 @@ import test.table.TableUtil;
 
 public class IOUtil {
 
-	public static String FILE_CHARSET = "gb2312";
+	public static String FILE_CHARSET = "gbk";
 	
 	public static void main(String[] args) {
-		String error1 = readFile("D:\\javaio\\error1.txt");
-		String error2 = readFile("D:\\javaio\\error2.txt");
-		System.out.println(error1.split(",").length);
-		System.out.println(error2.split(",").length);
-		Set<String> set = new HashSet<>();
-		for(String s:error1.split(",")){
-			set.add(s);
-		}
-		for(String s:error2.split(",")){
-			set.add(s);
-		}
-		System.out.println(set.size());
+		List<String> lines = readFileList("D:\\javaio\\test.txt");
+		for(String line:lines){
+			
+			System.out.println("select count(1) from pub_organize t where t.org_code like '"+line+"%';");
 		
+		}
+		
+		
+		
+//		Map<String,List<String>> colMap = readDBTable("D:\\javaio\\table");
+//		List<String> cols = colMap.get("mem_tran");
+//		String s = "(";
+//		for(String col:cols){
+////			s+=",'"+col+"'";
+//			s+=","+col;
+//		}
+//		s+=")";
+//		System.out.println(s);
 	}
 	
 	public static String readFile(String pathname){

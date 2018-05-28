@@ -10,12 +10,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.security.KeyPairGenerator;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
@@ -23,9 +24,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.Executor;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.regex.Matcher;
@@ -40,17 +43,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import antlr.Utils;
+import test.io.IOUtil;
 
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComThread;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
-
-import test.io.IOUtil;
-import test.table.ColInfo;
-import test.table.TableInfo;
-import test.table.TableUtil;
 
 public class test implements Cloneable{
 
@@ -64,12 +62,45 @@ public class test implements Cloneable{
 	
 	public static void main(String[] args) {
 		
+		
+		Date startDate = new Date();
+		
+		Date endDate = new Date();
+		startDate.setTime(endDate.getTime()+864111111L);
+		System.out.println("123V-12w".matches("^\\d{3}V-\\d{2}w$"));
+		
+		
 		try{
 		String s = null;
 		s.toString();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		Callable<String> s = new Callable<String>() {
+			
+			@Override
+			public String call() throws Exception {
+				// TODO Auto-generated method stub
+				return "abc";
+			}
+		};
+		
+		
+		ExecutorService exec = Executors.newSingleThreadExecutor();
+		Future<String> sArr = exec.submit(s);
+		String result = "";
+		try {
+			result = sArr.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(result);
+		
 //		List<String> results = IOUtil.readFileList("D:\\javaio\\test.txt");
 //		for(String line:results){
 //			String sql = "SELECT COUNT(*) FROM PUB_USER T WHERE T."+line+ " IS NULL AND T.USER_CATEGORY IN ('05','06') AND T.USER_LEVEL ='0' AND T.ORG_CODE LIKE 'C5%' AND NOT EXISTS(SELECT T1.USER_ID FROM MAN_HISTORY_MEMBER T1 WHERE T1.USER_ID = T.USER_ID AND T1.DATA_STATUS='3' );";
@@ -670,5 +701,35 @@ public class test implements Cloneable{
 		       return false;
 		    }
 		   }  
+	  
+	  /**
+		 * 计算两个时间之间间隔几天
+		 * @param startDate
+		 * @param endDate
+		 * @return
+		 * @throws ParseException
+		 */
+	    public static int daysBetween(Date startDate,Date endDate){    
+	    	int daysBetween = -1;
+	    	if(startDate==null||endDate==null){
+	    		return daysBetween;
+	    	}
+	    	try{
+		    	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+				startDate=sdf.parse(sdf.format(startDate));
+				endDate=sdf.parse(sdf.format(endDate));
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(startDate);
+				long time1 = cal.getTimeInMillis();
+				cal.setTime(endDate);
+				long time2 = cal.getTimeInMillis();
+				long betweenDays=(time2-time1)/(1000*3600*24);
+				daysBetween = Integer.parseInt(String.valueOf(betweenDays));
+	    	}catch (ParseException e) {
+				// TODO Auto-generated catch block
+			}
+	    	
+	    	return daysBetween;
+	    }    
 	
 }

@@ -92,17 +92,11 @@ public class PubUser implements java.io.Serializable {
 	private String userTitle;
 	private Integer userNum;
 	private String isSetFee;
-	private String isRepresent;
-	private Integer representTerm;
-	private String representLevel;
-	private Date representStart;
-	private Date representEnd;
+	private String isRetiredMana;
+	private String retiredType;
 
-	// 额外添加的字段 在新生成的实体类中要记得补上
-	boolean fromDw;
-	
 	// Constructors
-
+	private boolean fromDw;
 	/** default constructor */
 	public PubUser() {
 	}
@@ -141,8 +135,7 @@ public class PubUser implements java.io.Serializable {
 			Date jobEnd, String flowCard, String careInfo, String proof,
 			String proofResult, String secretType, String cadreType,
 			String userTitle, Integer userNum, String isSetFee,
-			String isRepresent, Integer representTerm, String representLevel,
-			Date representStart, Date representEnd) {
+			String isRetiredMana, String retiredType) {
 		this.userId = userId;
 		this.orgCode = orgCode;
 		this.loginName = loginName;
@@ -218,12 +211,8 @@ public class PubUser implements java.io.Serializable {
 		this.userTitle = userTitle;
 		this.userNum = userNum;
 		this.isSetFee = isSetFee;
-		this.isRepresent = isRepresent;
-		this.representTerm = representTerm;
-		this.representLevel = representLevel;
-		this.representStart = representStart;
-		this.representEnd = representEnd;
-		
+		this.isRetiredMana = isRetiredMana;
+		this.retiredType = retiredType;
 	}
 
 	// Property accessors
@@ -903,49 +892,22 @@ public class PubUser implements java.io.Serializable {
 		this.isSetFee = isSetFee;
 	}
 
-	@Column(name = "IS_REPRESENT", length = 1)
-	public String getIsRepresent() {
-		return this.isRepresent;
+	@Column(name = "IS_RETIRED_MANA", length = 1)
+	public String getIsRetiredMana() {
+		return this.isRetiredMana;
 	}
 
-	public void setIsRepresent(String isRepresent) {
-		this.isRepresent = isRepresent;
+	public void setIsRetiredMana(String isRetiredMana) {
+		this.isRetiredMana = isRetiredMana;
 	}
 
-	@Column(name = "REPRESENT_TERM", precision = 9, scale = 0)
-	public Integer getRepresentTerm() {
-		return this.representTerm;
+	@Column(name = "RETIRED_TYPE", length = 6)
+	public String getRetiredType() {
+		return this.retiredType;
 	}
 
-	public void setRepresentTerm(Integer representTerm) {
-		this.representTerm = representTerm;
-	}
-
-	@Column(name = "REPRESENT_LEVEL", length = 8)
-	public String getRepresentLevel() {
-		return this.representLevel;
-	}
-
-	public void setRepresentLevel(String representLevel) {
-		this.representLevel = representLevel;
-	}
-
-	@Column(name = "REPRESENT_START", length = 7)
-	public Date getRepresentStart() {
-		return this.representStart;
-	}
-
-	public void setRepresentStart(Date representStart) {
-		this.representStart = representStart;
-	}
-
-	@Column(name = "REPRESENT_END", length = 7)
-	public Date getRepresentEnd() {
-		return this.representEnd;
-	}
-
-	public void setRepresentEnd(Date representEnd) {
-		this.representEnd = representEnd;
+	public void setRetiredType(String retiredType) {
+		this.retiredType = retiredType;
 	}
 	@Transient
 	public boolean isFromDw() {
@@ -955,4 +917,5 @@ public class PubUser implements java.io.Serializable {
 	public void setFromDw(boolean fromDw) {
 		this.fromDw = fromDw;
 	}
+
 }

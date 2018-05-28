@@ -79,6 +79,12 @@ public class DwOrganize implements java.io.Serializable {
 	private String orgCategoryNew;
 	private String orgProofResult;
 	private String isExpedite;
+	private Integer subCount;
+	private Integer userCount;
+	private String parentCode;
+	private String highSecret;
+	private String isFuncationOrg;
+	private String isCombinedOrg;
 
 	// Constructors
 
@@ -114,7 +120,9 @@ public class DwOrganize implements java.io.Serializable {
 			String unitCreateOrg, String orgCodeGuangdong, String orgCodeNew,
 			String orgJuris, String isCommunity, String hasUnitCode,
 			String unitCodeReson, String orgCategoryNew, String orgProofResult,
-			String isExpedite) {
+			String isExpedite, Integer subCount, Integer userCount,
+			String parentCode, String highSecret, String isFuncationOrg,
+			String isCombinedOrg) {
 		this.recordId = recordId;
 		this.recordVersion = recordVersion;
 		this.recordTime = recordTime;
@@ -179,6 +187,12 @@ public class DwOrganize implements java.io.Serializable {
 		this.orgCategoryNew = orgCategoryNew;
 		this.orgProofResult = orgProofResult;
 		this.isExpedite = isExpedite;
+		this.subCount = subCount;
+		this.userCount = userCount;
+		this.parentCode = parentCode;
+		this.highSecret = highSecret;
+		this.isFuncationOrg = isFuncationOrg;
+		this.isCombinedOrg = isCombinedOrg;
 	}
 
 	// Property accessors
@@ -757,6 +771,60 @@ public class DwOrganize implements java.io.Serializable {
 
 	public void setIsExpedite(String isExpedite) {
 		this.isExpedite = isExpedite;
+	}
+
+	@Column(name = "SUB_COUNT", precision = 9, scale = 0)
+	public Integer getSubCount() {
+		return this.subCount;
+	}
+
+	public void setSubCount(Integer subCount) {
+		this.subCount = subCount;
+	}
+
+	@Column(name = "USER_COUNT", precision = 9, scale = 0)
+	public Integer getUserCount() {
+		return this.userCount;
+	}
+
+	public void setUserCount(Integer userCount) {
+		this.userCount = userCount;
+	}
+
+	@Column(name = "PARENT_CODE", length = 30)
+	public String getParentCode() {
+		return this.parentCode;
+	}
+
+	public void setParentCode(String parentCode) {
+		this.parentCode = parentCode;
+	}
+
+	@Column(name = "HIGH_SECRET", length = 1)
+	public String getHighSecret() {
+		return this.highSecret;
+	}
+
+	public void setHighSecret(String highSecret) {
+		this.highSecret = highSecret;
+	}
+
+	@Column(name = "IS_FUNCATION_ORG", length = 1)
+	public String getIsFuncationOrg() {
+		return this.isFuncationOrg;
+	}
+
+	public void setIsFuncationOrg(String isFuncationOrg) {
+		this.isFuncationOrg = isFuncationOrg;
+	}
+
+	@Column(name = "IS_COMBINED_ORG", length = 1)
+	public String getIsCombinedOrg() {
+		return this.isCombinedOrg;
+	}
+
+	public void setIsCombinedOrg(String isCombinedOrg) {
+		this.isCombinedOrg = isCombinedOrg;
 	}
 
 }
