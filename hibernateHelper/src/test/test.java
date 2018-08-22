@@ -1,5 +1,7 @@
 package test;
 
+import hibernateHelper.PubUser;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -10,10 +12,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.security.KeyPairGenerator;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,12 +27,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.Map.Entry;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.TimeZone;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.regex.Matcher;
@@ -44,7 +45,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import test.io.IOUtil;
+import test.password.SignTool;
 
+import com.google.gson.Gson;
+import com.itextpdf.text.log.SysoCounter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComThread;
 import com.jacob.com.Dispatch;
@@ -60,74 +64,17 @@ public class test implements Cloneable{
 	public static final String DEFAULT_FILE_PATH = "D:/javaio/";
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnsupportedEncodingException {
 		
-		
-		Date startDate = new Date();
-		
-		Date endDate = new Date();
-		startDate.setTime(endDate.getTime()+864111111L);
-		System.out.println("123V-12w".matches("^\\d{3}V-\\d{2}w$"));
-		
-		
-		try{
-		String s = null;
-		s.toString();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		Callable<String> s = new Callable<String>() {
+		PubUser user = new PubUser();
+		Field[] fs = PubUser.class.getDeclaredFields();
+		for(Field f : fs){
+			f.setAccessible(true);
+			System.out.println(f.getName());
 			
-			@Override
-			public String call() throws Exception {
-				// TODO Auto-generated method stub
-				return "abc";
-			}
-		};
-		
-		
-		ExecutorService exec = Executors.newSingleThreadExecutor();
-		Future<String> sArr = exec.submit(s);
-		String result = "";
-		try {
-			result = sArr.get();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
-		System.out.println(result);
 		
-//		List<String> results = IOUtil.readFileList("D:\\javaio\\test.txt");
-//		for(String line:results){
-//			String sql = "SELECT COUNT(*) FROM PUB_USER T WHERE T."+line+ " IS NULL AND T.USER_CATEGORY IN ('05','06') AND T.USER_LEVEL ='0' AND T.ORG_CODE LIKE 'C5%' AND NOT EXISTS(SELECT T1.USER_ID FROM MAN_HISTORY_MEMBER T1 WHERE T1.USER_ID = T.USER_ID AND T1.DATA_STATUS='3' );";
-//			System.out.println(sql);
-//		}
-//		List<String> results = IOUtil.readFileList("D:\\javaio\\test.txt");
-//		for(String line:results){
-//			String s = "SELECT t.*,t2.org_name FROM(";
-//			String innerSql = "SELECT T.USER_NAME,T.ID_CARD,T.USER_CATEGORY,T.ORG_CODE FROM PUB_USER T WHERE T."+line+ " IS NULL AND T.USER_CATEGORY IN ('05','06') AND T.USER_LEVEL ='0' AND T.ORG_CODE LIKE 'C5%' AND NOT EXISTS(SELECT T1.USER_ID FROM MAN_HISTORY_MEMBER T1 WHERE T1.USER_ID = T.USER_ID AND T1.DATA_STATUS='3' )";
-//			String e = ") t  LEFT JOIN PUB_ORGANIZE T2 ON T.ORG_CODE = T2.ORG_CODE;";
-//			System.out.println(s+innerSql+e);
-//		}
-//		List<String> results = IOUtil.readFileList("D:\\javaio\\test.txt");
-//		for(String line:results){
-//			String innerSql = "SELECT T.ORG_CODE,T.ORG_NAME FROM PUB_ORGANIZE T WHERE T."+line+ " IS NULL AND T.ORG_STATUS = '0' AND T.IS_VIRTUAL_NODE ='0';";
-//			System.out.println(innerSql);
-//		}
-		//id 匹配
-//		List<String> flowCodes = IOUtil.readFileList(DEFAULT_FILE_PATH+"test.txt");
-//		List<String> ids = IOUtil.readFileList(DEFAULT_FILE_PATH+"ids.txt");
-//		int idIndex= 0;
-//		for(String flowCode:flowCodes){
-//			String sql = "insert into flow_info(data_id,flow_code,org_code) values('"+ids.get(idIndex)+"','"+flowCode.split("\t")[1]+"','C50');";
-//			System.out.println(sql);
-//			idIndex++;
-//		}
-
 		
 	}
 	

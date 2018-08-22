@@ -1,5 +1,6 @@
 // default package
 
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,13 +11,13 @@ import javax.persistence.Table;
  * DwUser entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "DW_USER" )
-public class DwUser {
+@Table(name = "DW_USER")
+public class DwUser implements java.io.Serializable {
 
 	// Fields
 
 	private String recordId;
-	private Long recordVersion;
+	private BigDecimal recordVersion;
 	private Date recordTime;
 	private String recordFrom;
 	private String recordCreator;
@@ -92,11 +93,9 @@ public class DwUser {
 	private String proof;
 	private String secretType;
 	private String cadreType;
-	private String isRepresent;
-	private Integer representTerm;
-	private String representLevel;
-	private Date representStart;
-	private Date representEnd;
+	private String archivesSituation;
+	private String archivesUnit;
+	private String archivesExplain;
 
 	// Constructors
 
@@ -115,7 +114,7 @@ public class DwUser {
 	}
 
 	/** full constructor */
-	public DwUser(String recordId, Long recordVersion,
+	public DwUser(String recordId, BigDecimal recordVersion,
 			Date recordTime, String recordFrom, String recordCreator,
 			String userId, String orgCode, String loginName, String userName,
 			String userPassword, String email, String mobilePhone,
@@ -140,8 +139,8 @@ public class DwUser {
 			Date eduStart, Date eduEnd, Date jobStart,
 			Date jobEnd, String flowCard, String proofResult,
 			String proof, String secretType, String cadreType,
-			String isRepresent, Integer representTerm, String representLevel,
-			Date representStart, Date representEnd) {
+			String archivesSituation, String archivesUnit,
+			String archivesExplain) {
 		this.recordId = recordId;
 		this.recordVersion = recordVersion;
 		this.recordTime = recordTime;
@@ -219,11 +218,9 @@ public class DwUser {
 		this.proof = proof;
 		this.secretType = secretType;
 		this.cadreType = cadreType;
-		this.isRepresent = isRepresent;
-		this.representTerm = representTerm;
-		this.representLevel = representLevel;
-		this.representStart = representStart;
-		this.representEnd = representEnd;
+		this.archivesSituation = archivesSituation;
+		this.archivesUnit = archivesUnit;
+		this.archivesExplain = archivesExplain;
 	}
 
 	// Property accessors
@@ -238,11 +235,11 @@ public class DwUser {
 	}
 
 	@Column(name = "RECORD_VERSION", scale = 0)
-	public Long getRecordVersion() {
+	public BigDecimal getRecordVersion() {
 		return this.recordVersion;
 	}
 
-	public void setRecordVersion(Long recordVersion) {
+	public void setRecordVersion(BigDecimal recordVersion) {
 		this.recordVersion = recordVersion;
 	}
 
@@ -921,49 +918,31 @@ public class DwUser {
 		this.cadreType = cadreType;
 	}
 
-	@Column(name = "IS_REPRESENT", length = 1)
-	public String getIsRepresent() {
-		return this.isRepresent;
+	@Column(name = "ARCHIVES_SITUATION", length = 6)
+	public String getArchivesSituation() {
+		return this.archivesSituation;
 	}
 
-	public void setIsRepresent(String isRepresent) {
-		this.isRepresent = isRepresent;
+	public void setArchivesSituation(String archivesSituation) {
+		this.archivesSituation = archivesSituation;
 	}
 
-	@Column(name = "REPRESENT_TERM", precision = 9, scale = 0)
-	public Integer getRepresentTerm() {
-		return this.representTerm;
+	@Column(name = "ARCHIVES_UNIT", length = 256)
+	public String getArchivesUnit() {
+		return this.archivesUnit;
 	}
 
-	public void setRepresentTerm(Integer representTerm) {
-		this.representTerm = representTerm;
+	public void setArchivesUnit(String archivesUnit) {
+		this.archivesUnit = archivesUnit;
 	}
 
-	@Column(name = "REPRESENT_LEVEL", length = 8)
-	public String getRepresentLevel() {
-		return this.representLevel;
+	@Column(name = "ARCHIVES_EXPLAIN", length = 2000)
+	public String getArchivesExplain() {
+		return this.archivesExplain;
 	}
 
-	public void setRepresentLevel(String representLevel) {
-		this.representLevel = representLevel;
-	}
-
-	@Column(name = "REPRESENT_START", length = 7)
-	public Date getRepresentStart() {
-		return this.representStart;
-	}
-
-	public void setRepresentStart(Date representStart) {
-		this.representStart = representStart;
-	}
-
-	@Column(name = "REPRESENT_END", length = 7)
-	public Date getRepresentEnd() {
-		return this.representEnd;
-	}
-
-	public void setRepresentEnd(Date representEnd) {
-		this.representEnd = representEnd;
+	public void setArchivesExplain(String archivesExplain) {
+		this.archivesExplain = archivesExplain;
 	}
 
 }

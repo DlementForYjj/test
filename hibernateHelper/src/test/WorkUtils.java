@@ -1,29 +1,193 @@
 package test;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import antlr.Utils;
+
+import com.google.common.collect.Multiset.Entry;
+import com.google.gson.Gson;
+
+import javassist.tools.reflect.Reflection;
 import test.io.IOUtil;
 import test.table.TableUtil;
+import test.util.CalMap;
 
 public class WorkUtils {
 	public static String filePath = "D:\\javaio\\";
 	
 	public static void main(String[] args) {
-		System.out.println(System.currentTimeMillis());
-		System.out.println("FROM FlowRecordMessage t WHERE EXISTS(SELECT t1.taskId FlowRecordMessage t1 WHERE t1.taskId=? AND t1.messageParent= t.messageParent) ORDER BY t.createTime ASC".substring(80));
+		
+//		Set<String> dataIds = new HashSet<>();
+//		dataIds.add("dfafa");
+//		dataIds.add("dfafa");
+//		dataIds.add("dfafas");
+//		
+//		System.out.println(dataIds.toString());
+		
+		System.out.println(formatHqlToSql("SELECT t.functionId FROM PubFunctionConfig t,PubPermission t1,PubRoleMember t2 WHERE t.functionId=t1.id.operId AND t1.id.roleId=t2.id.roleId AND t2.id.userId=?AND t.functionType IN(?,?)"));
+	
+//		List<String> idCards = IOUtil.readFileList(filePath+"idCard.txt");
+//		List<String> idCard2s = IOUtil.readFileList(filePath+"idCard2.txt");
+//		中国海峡人才市场
+//		StringBuilder sql = new StringBuilder();
+//		int j = 0;
+//		boolean isFirst = true;
+//		int pageSize = 999;
+//		for(String idCard : idCards){
+//			sql.append((isFirst?"":",")+"'"+idCard+"'");
+//			if(isFirst){
+//				isFirst =false;
+//			}
+//			if(pageSize==j){
+//				j=0;
+//				sql.append(")");
+//				sql.append(" OR t.id_Card IN");
+//				sql.append("(");
+//				isFirst = true;
+//			}
+//			j++;
+//		}
+//		IOUtil.outputFile(filePath+"身份证.txt", sql.toString());
+		
+		
+		Map<String,List<String>> userNameMap = new HashMap<>();
+		List<String> lines = IOUtil.readFileList(filePath+"test.txt");
+		List<String> userNameN = IOUtil.readFileList(filePath+"userNameN.txt");
+		List<String> userNameP = IOUtil.readFileList(filePath+"userNameN.txt");
+		for(String line : lines){
+			String[] lineInfos = line.split("\t");
+			String userName = lineInfos[0];
+			String idCard = lineInfos[1];
+			String birthDay = lineInfos[2];
+			String gender = lineInfos[3];
+			String userCate = lineInfos[4];
+			String enterDate = lineInfos[5];
+			String officialDate = lineInfos[6];
+			
+			String userInfo = userName+"\t"+idCard+"\t"+birthDay+"\t"+gender+"\t"+userCate+"\t"+enterDate+"\t"+officialDate;
+			
+			
+			boolean idCardNotNull =idCard!=null&&!"".equals(idCard); 
+			if(idCardNotNull){
+			}else{
+				List<String> userInfoList=userNameMap.get(userName);
+				if(userInfoList==null){
+					userInfoList = new ArrayList<>();
+				}
+				userInfoList.add(userInfo);
+				userNameMap.put(userName, userInfoList);
+			}
+		}
+		
+		Set<String> userNames = new HashSet<>();
+		Set<String> n = new HashSet<>();
+		
+		
+		List<String> printInfos = new ArrayList<>();
+		List<String> userNameE = IOUtil.readFileList(filePath+"userName.txt");
+		for(java.util.Map.Entry<String, List<String>> entry : userNameMap.entrySet()){
+			String userName = entry.getKey();
+			List<String> list = entry.getValue();
+			if(!userNameN.contains(userName)){
+				if(!userNameE.contains(userName)&&list.size()==1){
+					printInfos.add(userName);
+				}
+			}
+		}
+		
+		
+		IOUtil.outPutFileList(printInfos, filePath+"out.txt");
+		
+		
+		
+		List<String> outList = IOUtil.readFileList(filePath+"out.txt");
+		n.addAll(outList);
+		
+		
+		System.out.println("SELECT t.user_name,t.id_card,t.birthday,t.gender,t.user_category,t.enter_date,t.official_date,t.org_code,t1.org_name,t1.contactor,t1.contact_phone FROM PUB_USER T left join pub_organize t1 on t1.org_code = t.org_code  WHERE T.USER_NAME in"+linkSql("outList", n));
+//		IOUtil.outputFile(filePath+"idCard.txt", sb.toString());
+		
+//		-- Create table
+//		create table ID_CARD_ARCH
+//		(
+//		  id_card   varchar2(128),
+//		  user_name varchar2(300)
+//		)
+//		;
+		
+		//能匹配成功的2种 
+		//1.身份证对应上
+		//SELECT t.* FROM ID_CARD_ARCH t WHERE NOT EXISTS(SELECT t1.idCard FROM PUB_USER t1 WHERE t1.id_card = t.id_card); 
+		
+//		StringBuilder out = new StringBuilder();
+//		for(String idCard :idCardMap.keySet()){
+//			if(idCard.length()>14){
+//				out.append("INSERT INTO ID_CARD_ARCH(ID_CARD) VALUES('"+idCard+"');\r\n");
+//			}else{
+//				String userName = idCardMap.get(idCard);
+//				cMap.put(userName, 1);
+//				userNameList.add(idCardMap.get(idCardMap.keySet()));
+//			}
+//		}
+//		IOUtil.outputFile(filePath+"out.sql", out.toString());
+		
+		
+		
+//		2.身份证没有的，姓名唯一的
+//		List<String> unicNames = cMap.getOnlyOne();
+//		
+//		System.out.println(unicNames);
+//		
+//		List<String> repeatUserNames = cMap.getBiggerThan(1);
+//		List<String> repeatUserNames = IOUtil.readFileList(filePath+"test1.txt");
+//		StringBuilder outRepeat = new StringBuilder();
+//		for(String userName : repeatUserNames){
+//			List<String> userInfos = userInfoMap.get(userName);
+//			for(String userInfo: userInfos){
+//				outRepeat.append(userInfo+"\r\n");
+//			}
+//		}
+//		IOUtil.outputFile(filePath+"姓名在e家重复的人员名单.txt", outRepeat.toString());
+		
+		
+		
+//		//需要输出的
+//		//1.姓名重复的
+//		
+//		
+//		
+//		List<String> bzgxLines = IOUtil.readFileList(filePath+"bzhx.txt");
+//		List<String> bzgxList = new ArrayList<>();
+//		for(String bzgxLine : bzgxLines){
+//			String idCard = "";
+//			String[] lineInfos = bzgxLine.split("\t+");
+//			if(lineInfos.length>1){
+//				idCard = lineInfos[1];
+//			}
+//			if(!"".equals(idCard)){
+//				bzgxList.add(idCard);
+//			}
+//		}
+//		
+//		for(String idCard : bzgxList){
+//			Set<String> entrySet = idCardMap.keySet();
+//			if(!entrySet.contains(idCard)){
+//			}
+//		}
+		
 	}
 	
 	
-	
-	public static List<String> readFileList(String fileName){
-		return IOUtil.readFileList(filePath+fileName);
-	}
 	
 	
 	/**
@@ -165,5 +329,83 @@ public class WorkUtils {
 		
 		
 		return isIdCard;
+	}
+	
+	public static Set<String> findHqlCols(String hql){
+		Set<String> set = new HashSet<>();
+		String regex = "t(.{0,}?)\\.(.+?)\\b";
+		Matcher m = Pattern.compile(regex).matcher(hql);
+		while(m.find()){
+			if(m.groupCount()>=2){
+				set.add(m.group(2));
+			}
+		}
+		return set;
+	}
+	
+	public static Set<String> findHqlTables(String hql){
+		Set<String> set = new HashSet<>();
+		String regex = "FROM\\s+(.+?)\\b";
+		Matcher m = Pattern.compile(regex).matcher(hql);
+		while(m.find()){
+//			if(m.groupCount()>=2){
+				set.add(m.group(1));
+//			}
+		}
+		return set;
+	}
+	//把所有大写替换成_小写 ，如  orgCode → org_code
+	public static String formatToDB(String str){
+		StringBuilder result = new StringBuilder();
+		int lastIndex = 0;
+		for(int i=0;i<str.length();i++){
+			if(i!=0&&Character.isUpperCase(str.charAt(i))){
+				result.append(str.substring(lastIndex, i)+"_");
+				lastIndex = i;
+			}
+		}
+		result.append(str.substring(lastIndex));
+		
+		return result.toString().toLowerCase();
+	}
+	
+	
+	public static String formatHqlToSql(String hql){
+		
+		Set<String> cols = findHqlCols(hql);
+		
+		for(String col : cols){
+			hql = hql.replaceAll(col, formatToDB(col));
+			
+		}
+		cols = findHqlTables(hql);
+		for(String col : cols){
+			hql = hql.replaceAll(col, formatToDB(col));
+			
+		}
+		return hql ;
+	}
+	public static String linkSql(String col,Set<String> userNames){
+		StringBuilder sql = new StringBuilder();
+		int j = 0;
+		boolean isFirst = true;
+		sql.append("(");
+		int pageSize = 999;
+		for(String idCard : userNames){
+			sql.append((isFirst?"":",")+"'"+idCard+"'");
+			if(isFirst){
+				isFirst =false;
+			}
+			if(pageSize==j){
+				j=0;
+				sql.append(")");
+				sql.append(" OR t."+col+" IN");
+				sql.append("(");
+				isFirst = true;
+			}
+			j++;
+		}
+		sql.append(")");
+		return sql.toString();
 	}
 }

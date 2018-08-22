@@ -28,30 +28,20 @@ import antlr.Utils;
 import test.table.ColInfo;
 import test.table.TableInfo;
 import test.table.TableUtil;
+import test.util.CalMap;
 
 public class IOUtil {
 
 	public static String FILE_CHARSET = "gbk";
 	
 	public static void main(String[] args) {
-		List<String> lines = readFileList("D:\\javaio\\test.txt");
-		for(String line:lines){
-			
-			System.out.println("select count(1) from pub_organize t where t.org_code like '"+line+"%';");
 		
-		}
+		CalMap cMap = new CalMap();
+		cMap.put("1", 3);
+		cMap.put("1", 3);
+		System.out.println(cMap.get("1"));
+		System.out.println(cMap.get("2"));
 		
-		
-		
-//		Map<String,List<String>> colMap = readDBTable("D:\\javaio\\table");
-//		List<String> cols = colMap.get("mem_tran");
-//		String s = "(";
-//		for(String col:cols){
-////			s+=",'"+col+"'";
-//			s+=","+col;
-//		}
-//		s+=")";
-//		System.out.println(s);
 	}
 	
 	public static String readFile(String pathname){
@@ -122,7 +112,13 @@ public class IOUtil {
 		
 		return result;
 	}
-	
+	public static void outPutFileList(List<String> printList,String pathname){
+		StringBuilder sb = new StringBuilder(); 
+		for(String printS : printList){
+			sb.append(printS+"\r\n");
+		}
+		outputFile(pathname, sb.toString());
+	}
 	public static void outputFile(String pathname,String outputString){
 		
 		try {

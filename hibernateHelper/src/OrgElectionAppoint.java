@@ -27,6 +27,7 @@ public class OrgElectionAppoint implements java.io.Serializable {
 	private String titleOrder;
 	private Integer electionTerm;
 	private String appointStatus;
+	private String appointModus;
 
 	// Constructors
 
@@ -43,7 +44,8 @@ public class OrgElectionAppoint implements java.io.Serializable {
 	public OrgElectionAppoint(String appointId, String userId, String orgCode,
 			String appointTitle, String isClassMember, String appointType,
 			Date appointTime, String appointYears, Date leaveTime,
-			String titleOrder, Integer electionTerm, String appointStatus) {
+			String titleOrder, Integer electionTerm, String appointStatus,
+			String appointModus) {
 		this.appointId = appointId;
 		this.userId = userId;
 		this.orgCode = orgCode;
@@ -56,6 +58,7 @@ public class OrgElectionAppoint implements java.io.Serializable {
 		this.titleOrder = titleOrder;
 		this.electionTerm = electionTerm;
 		this.appointStatus = appointStatus;
+		this.appointModus = appointModus;
 	}
 
 	// Property accessors
@@ -166,6 +169,15 @@ public class OrgElectionAppoint implements java.io.Serializable {
 
 	public void setAppointStatus(String appointStatus) {
 		this.appointStatus = appointStatus;
+	}
+
+	@Column(name = "APPOINT_MODUS", length = 6)
+	public String getAppointModus() {
+		return this.appointModus;
+	}
+
+	public void setAppointModus(String appointModus) {
+		this.appointModus = appointModus;
 	}
 
 }

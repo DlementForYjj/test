@@ -40,13 +40,20 @@ public class PubUserExt implements java.io.Serializable {
 	private Date activeTime;
 	private Date deveMemberTime;
 	private Date archiveTime;
-	private Date preCheckTime;
-	private String preCheckUserId;
+	private Date preCheckBranchTime;
+	private String preCheckBranchUserId;
 	private Date finalCheckTime;
 	private String finalCheckUserId;
 	private String checkUserId;
 	private String finalCheckReason;
 	private String probReason;
+	private Date preCheckGeneralTime;
+	private String preCheckGeneralUserId;
+	private String isFinalCheck;
+	private String isPreCheckBranch;
+	private String isPreCheckGeneral;
+	private String preCheckGeneralProofuserId;
+	private String finalCheckProofuserId;
 
 	// Constructors
 
@@ -69,9 +76,13 @@ public class PubUserExt implements java.io.Serializable {
 			String punish, String archiveList, String archivePerson,
 			Date applyerTime, Date activeTime,
 			Date deveMemberTime, Date archiveTime,
-			Date preCheckTime, String preCheckUserId,
+			Date preCheckBranchTime, String preCheckBranchUserId,
 			Date finalCheckTime, String finalCheckUserId,
-			String checkUserId, String finalCheckReason, String probReason) {
+			String checkUserId, String finalCheckReason, String probReason,
+			Date preCheckGeneralTime, String preCheckGeneralUserId,
+			String isFinalCheck, String isPreCheckBranch,
+			String isPreCheckGeneral, String preCheckGeneralProofuserId,
+			String finalCheckProofuserId) {
 		this.userId = userId;
 		this.fltPaperNum = fltPaperNum;
 		this.isRepresent = isRepresent;
@@ -97,13 +108,20 @@ public class PubUserExt implements java.io.Serializable {
 		this.activeTime = activeTime;
 		this.deveMemberTime = deveMemberTime;
 		this.archiveTime = archiveTime;
-		this.preCheckTime = preCheckTime;
-		this.preCheckUserId = preCheckUserId;
+		this.preCheckBranchTime = preCheckBranchTime;
+		this.preCheckBranchUserId = preCheckBranchUserId;
 		this.finalCheckTime = finalCheckTime;
 		this.finalCheckUserId = finalCheckUserId;
 		this.checkUserId = checkUserId;
 		this.finalCheckReason = finalCheckReason;
 		this.probReason = probReason;
+		this.preCheckGeneralTime = preCheckGeneralTime;
+		this.preCheckGeneralUserId = preCheckGeneralUserId;
+		this.isFinalCheck = isFinalCheck;
+		this.isPreCheckBranch = isPreCheckBranch;
+		this.isPreCheckGeneral = isPreCheckGeneral;
+		this.preCheckGeneralProofuserId = preCheckGeneralProofuserId;
+		this.finalCheckProofuserId = finalCheckProofuserId;
 	}
 
 	// Property accessors
@@ -333,22 +351,22 @@ public class PubUserExt implements java.io.Serializable {
 		this.archiveTime = archiveTime;
 	}
 
-	@Column(name = "PRE_CHECK_TIME", length = 7)
-	public Date getPreCheckTime() {
-		return this.preCheckTime;
+	@Column(name = "PRE_CHECK_BRANCH_TIME", length = 7)
+	public Date getPreCheckBranchTime() {
+		return this.preCheckBranchTime;
 	}
 
-	public void setPreCheckTime(Date preCheckTime) {
-		this.preCheckTime = preCheckTime;
+	public void setPreCheckBranchTime(Date preCheckBranchTime) {
+		this.preCheckBranchTime = preCheckBranchTime;
 	}
 
-	@Column(name = "PRE_CHECK_USER_ID", length = 16)
-	public String getPreCheckUserId() {
-		return this.preCheckUserId;
+	@Column(name = "PRE_CHECK_BRANCH_USER_ID", length = 16)
+	public String getPreCheckBranchUserId() {
+		return this.preCheckBranchUserId;
 	}
 
-	public void setPreCheckUserId(String preCheckUserId) {
-		this.preCheckUserId = preCheckUserId;
+	public void setPreCheckBranchUserId(String preCheckBranchUserId) {
+		this.preCheckBranchUserId = preCheckBranchUserId;
 	}
 
 	@Column(name = "FINAL_CHECK_TIME", length = 7)
@@ -394,6 +412,69 @@ public class PubUserExt implements java.io.Serializable {
 
 	public void setProbReason(String probReason) {
 		this.probReason = probReason;
+	}
+
+	@Column(name = "PRE_CHECK_GENERAL_TIME", length = 7)
+	public Date getPreCheckGeneralTime() {
+		return this.preCheckGeneralTime;
+	}
+
+	public void setPreCheckGeneralTime(Date preCheckGeneralTime) {
+		this.preCheckGeneralTime = preCheckGeneralTime;
+	}
+
+	@Column(name = "PRE_CHECK_GENERAL_USER_ID", length = 16)
+	public String getPreCheckGeneralUserId() {
+		return this.preCheckGeneralUserId;
+	}
+
+	public void setPreCheckGeneralUserId(String preCheckGeneralUserId) {
+		this.preCheckGeneralUserId = preCheckGeneralUserId;
+	}
+
+	@Column(name = "IS_FINAL_CHECK", length = 1)
+	public String getIsFinalCheck() {
+		return this.isFinalCheck;
+	}
+
+	public void setIsFinalCheck(String isFinalCheck) {
+		this.isFinalCheck = isFinalCheck;
+	}
+
+	@Column(name = "IS_PRE_CHECK_BRANCH", length = 1)
+	public String getIsPreCheckBranch() {
+		return this.isPreCheckBranch;
+	}
+
+	public void setIsPreCheckBranch(String isPreCheckBranch) {
+		this.isPreCheckBranch = isPreCheckBranch;
+	}
+
+	@Column(name = "IS_PRE_CHECK_GENERAL", length = 1)
+	public String getIsPreCheckGeneral() {
+		return this.isPreCheckGeneral;
+	}
+
+	public void setIsPreCheckGeneral(String isPreCheckGeneral) {
+		this.isPreCheckGeneral = isPreCheckGeneral;
+	}
+
+	@Column(name = "PRE_CHECK_GENERAL_PROOFUSER_ID", length = 16)
+	public String getPreCheckGeneralProofuserId() {
+		return this.preCheckGeneralProofuserId;
+	}
+
+	public void setPreCheckGeneralProofuserId(String preCheckGeneralProofuserId) {
+		this.preCheckGeneralProofuserId = preCheckGeneralProofuserId;
+	}
+
+	@Column(name = "FINAL_CHECK_PROOFUSER_ID", length = 16)
+	public String getFinalCheckProofuserId() {
+		return this.finalCheckProofuserId;
+	}
+
+	public void setFinalCheckProofuserId(String finalCheckProofuserId) {
+		this.finalCheckProofuserId = finalCheckProofuserId;
 	}
 
 }

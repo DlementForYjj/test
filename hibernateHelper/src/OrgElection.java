@@ -34,6 +34,7 @@ public class OrgElection implements java.io.Serializable {
 	private Date beforeElectionDeadline;
 	private Date electionDeadline;
 	private String electionYears;
+	private String electionModus;
 
 	// Constructors
 
@@ -54,7 +55,8 @@ public class OrgElection implements java.io.Serializable {
 			String isAnnualElection, String isConvened,
 			String isEstablishConnectOrg, String electionSituation,
 			String isDispatch, Date beforeElectionDeadline,
-			Date electionDeadline, String electionYears) {
+			Date electionDeadline, String electionYears,
+			String electionModus) {
 		this.electionId = electionId;
 		this.electionTerm = electionTerm;
 		this.orgCode = orgCode;
@@ -74,6 +76,7 @@ public class OrgElection implements java.io.Serializable {
 		this.beforeElectionDeadline = beforeElectionDeadline;
 		this.electionDeadline = electionDeadline;
 		this.electionYears = electionYears;
+		this.electionModus = electionModus;
 	}
 
 	// Property accessors
@@ -247,6 +250,15 @@ public class OrgElection implements java.io.Serializable {
 
 	public void setElectionYears(String electionYears) {
 		this.electionYears = electionYears;
+	}
+
+	@Column(name = "ELECTION_MODUS", length = 6)
+	public String getElectionModus() {
+		return this.electionModus;
+	}
+
+	public void setElectionModus(String electionModus) {
+		this.electionModus = electionModus;
 	}
 
 }

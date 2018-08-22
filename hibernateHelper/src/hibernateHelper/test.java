@@ -9,12 +9,18 @@ import java.util.Map;
 public class test {
 
 	public static void main(String[] args) {
-		List<String> d = new ArrayList<>();
-		d.add("1");
-		d.add("2");
-		d.add("3");
-		d.add("4");
-		System.out.println(d.get(d.size()-1));
+		int i = 0;
+		
+		try{
+			int s =10/0;
+		}catch(ArithmeticException e){
+			try{
+				String a = null;
+				a.toString();
+			}catch(NullPointerException ep){
+				ep.printStackTrace();
+			}
+		}
 		
 	}
 	public static List<String> getAbleValueList(){

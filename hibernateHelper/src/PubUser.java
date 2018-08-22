@@ -1,6 +1,6 @@
 // default package
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +29,7 @@ public class PubUser implements java.io.Serializable {
 	private String userCode;
 	private String idCard;
 	private String nation;
-	private Date birthday;
+	private Timestamp birthday;
 	private String birthplace;
 	private String address;
 	private String qq;
@@ -38,9 +38,9 @@ public class PubUser implements java.io.Serializable {
 	private String education;
 	private String major;
 	private String userCategory;
-	private Date probationaryDate;
-	private Date officialDate;
-	private Date enterDate;
+	private Timestamp probationaryDate;
+	private Timestamp officialDate;
+	private Timestamp enterDate;
 	private String photo;
 	private String firstContactor;
 	private String firstContactPhone;
@@ -69,20 +69,20 @@ public class PubUser implements java.io.Serializable {
 	private String taxWageStatus;
 	private String unitName;
 	private String unitAddress;
-	private Date probDateBak;
-	private Date updateTime;
+	private Timestamp probDateBak;
+	private Timestamp updateTime;
 	private String job;
 	private String partyStatus;
 	private String addressPre;
 	private String isDisconnect;
-	private Date disconnectTime;
+	private Timestamp disconnectTime;
 	private String combinedOrg;
 	private String telephone;
 	private String isCombined;
-	private Date eduStart;
-	private Date eduEnd;
-	private Date jobStart;
-	private Date jobEnd;
+	private Timestamp eduStart;
+	private Timestamp eduEnd;
+	private Timestamp jobStart;
+	private Timestamp jobEnd;
 	private String flowCard;
 	private String careInfo;
 	private String proof;
@@ -94,9 +94,12 @@ public class PubUser implements java.io.Serializable {
 	private String isSetFee;
 	private String isRetiredMana;
 	private String retiredType;
+	private String archivesSituation;
+	private String archivesUnit;
+	private String archivesExplain;
 
 	// Constructors
-	private boolean fromDw;
+
 	/** default constructor */
 	public PubUser() {
 	}
@@ -114,11 +117,11 @@ public class PubUser implements java.io.Serializable {
 	public PubUser(String userId, String orgCode, String loginName,
 			String userName, String userPassword, String email,
 			String mobilePhone, String isValid, String userLevel,
-			String userCode, String idCard, String nation, Date birthday,
+			String userCode, String idCard, String nation, Timestamp birthday,
 			String birthplace, String address, String qq, String weChat,
 			String graduateCollege, String education, String major,
-			String userCategory, Date probationaryDate,
-			Date officialDate, Date enterDate, String photo,
+			String userCategory, Timestamp probationaryDate,
+			Timestamp officialDate, Timestamp enterDate, String photo,
 			String firstContactor, String firstContactPhone, String userResume,
 			String innerJob, String outerJob, String linkOrg, String linkType,
 			String postcode, String isFloating, String isCertified,
@@ -127,15 +130,16 @@ public class PubUser implements java.io.Serializable {
 			String recUnitType, Double taxWage, String isActivation,
 			String hasOrg, String certifyWays, String isInfoEnough,
 			String eduDegree, String gender, String taxWageStatus,
-			String unitName, String unitAddress, Date probDateBak,
-			Date updateTime, String job, String partyStatus,
-			String addressPre, String isDisconnect, Date disconnectTime,
+			String unitName, String unitAddress, Timestamp probDateBak,
+			Timestamp updateTime, String job, String partyStatus,
+			String addressPre, String isDisconnect, Timestamp disconnectTime,
 			String combinedOrg, String telephone, String isCombined,
-			Date eduStart, Date eduEnd, Date jobStart,
-			Date jobEnd, String flowCard, String careInfo, String proof,
+			Timestamp eduStart, Timestamp eduEnd, Timestamp jobStart,
+			Timestamp jobEnd, String flowCard, String careInfo, String proof,
 			String proofResult, String secretType, String cadreType,
 			String userTitle, Integer userNum, String isSetFee,
-			String isRetiredMana, String retiredType) {
+			String isRetiredMana, String retiredType, String archivesSituation,
+			String archivesUnit, String archivesExplain) {
 		this.userId = userId;
 		this.orgCode = orgCode;
 		this.loginName = loginName;
@@ -213,6 +217,9 @@ public class PubUser implements java.io.Serializable {
 		this.isSetFee = isSetFee;
 		this.isRetiredMana = isRetiredMana;
 		this.retiredType = retiredType;
+		this.archivesSituation = archivesSituation;
+		this.archivesUnit = archivesUnit;
+		this.archivesExplain = archivesExplain;
 	}
 
 	// Property accessors
@@ -326,11 +333,11 @@ public class PubUser implements java.io.Serializable {
 	}
 
 	@Column(name = "BIRTHDAY", length = 7)
-	public Date getBirthday() {
+	public Timestamp getBirthday() {
 		return this.birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(Timestamp birthday) {
 		this.birthday = birthday;
 	}
 
@@ -407,29 +414,29 @@ public class PubUser implements java.io.Serializable {
 	}
 
 	@Column(name = "PROBATIONARY_DATE", length = 7)
-	public Date getProbationaryDate() {
+	public Timestamp getProbationaryDate() {
 		return this.probationaryDate;
 	}
 
-	public void setProbationaryDate(Date probationaryDate) {
+	public void setProbationaryDate(Timestamp probationaryDate) {
 		this.probationaryDate = probationaryDate;
 	}
 
 	@Column(name = "OFFICIAL_DATE", length = 7)
-	public Date getOfficialDate() {
+	public Timestamp getOfficialDate() {
 		return this.officialDate;
 	}
 
-	public void setOfficialDate(Date officialDate) {
+	public void setOfficialDate(Timestamp officialDate) {
 		this.officialDate = officialDate;
 	}
 
 	@Column(name = "ENTER_DATE", length = 7)
-	public Date getEnterDate() {
+	public Timestamp getEnterDate() {
 		return this.enterDate;
 	}
 
-	public void setEnterDate(Date enterDate) {
+	public void setEnterDate(Timestamp enterDate) {
 		this.enterDate = enterDate;
 	}
 
@@ -686,20 +693,20 @@ public class PubUser implements java.io.Serializable {
 	}
 
 	@Column(name = "PROB_DATE_BAK", length = 7)
-	public Date getProbDateBak() {
+	public Timestamp getProbDateBak() {
 		return this.probDateBak;
 	}
 
-	public void setProbDateBak(Date probDateBak) {
+	public void setProbDateBak(Timestamp probDateBak) {
 		this.probDateBak = probDateBak;
 	}
 
 	@Column(name = "UPDATE_TIME", length = 7)
-	public Date getUpdateTime() {
+	public Timestamp getUpdateTime() {
 		return this.updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime) {
+	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
 
@@ -740,11 +747,11 @@ public class PubUser implements java.io.Serializable {
 	}
 
 	@Column(name = "DISCONNECT_TIME", length = 7)
-	public Date getDisconnectTime() {
+	public Timestamp getDisconnectTime() {
 		return this.disconnectTime;
 	}
 
-	public void setDisconnectTime(Date disconnectTime) {
+	public void setDisconnectTime(Timestamp disconnectTime) {
 		this.disconnectTime = disconnectTime;
 	}
 
@@ -776,38 +783,38 @@ public class PubUser implements java.io.Serializable {
 	}
 
 	@Column(name = "EDU_START", length = 7)
-	public Date getEduStart() {
+	public Timestamp getEduStart() {
 		return this.eduStart;
 	}
 
-	public void setEduStart(Date eduStart) {
+	public void setEduStart(Timestamp eduStart) {
 		this.eduStart = eduStart;
 	}
 
 	@Column(name = "EDU_END", length = 7)
-	public Date getEduEnd() {
+	public Timestamp getEduEnd() {
 		return this.eduEnd;
 	}
 
-	public void setEduEnd(Date eduEnd) {
+	public void setEduEnd(Timestamp eduEnd) {
 		this.eduEnd = eduEnd;
 	}
 
 	@Column(name = "JOB_START", length = 7)
-	public Date getJobStart() {
+	public Timestamp getJobStart() {
 		return this.jobStart;
 	}
 
-	public void setJobStart(Date jobStart) {
+	public void setJobStart(Timestamp jobStart) {
 		this.jobStart = jobStart;
 	}
 
 	@Column(name = "JOB_END", length = 7)
-	public Date getJobEnd() {
+	public Timestamp getJobEnd() {
 		return this.jobEnd;
 	}
 
-	public void setJobEnd(Date jobEnd) {
+	public void setJobEnd(Timestamp jobEnd) {
 		this.jobEnd = jobEnd;
 	}
 
@@ -838,7 +845,7 @@ public class PubUser implements java.io.Serializable {
 		this.proof = proof;
 	}
 
-	@Column(name = "PROOF_RESULT", length = 1000)
+	@Column(name = "PROOF_RESULT", length = 4000)
 	public String getProofResult() {
 		return this.proofResult;
 	}
@@ -909,6 +916,35 @@ public class PubUser implements java.io.Serializable {
 	public void setRetiredType(String retiredType) {
 		this.retiredType = retiredType;
 	}
+
+	@Column(name = "ARCHIVES_SITUATION", length = 6)
+	public String getArchivesSituation() {
+		return this.archivesSituation;
+	}
+
+	public void setArchivesSituation(String archivesSituation) {
+		this.archivesSituation = archivesSituation;
+	}
+
+	@Column(name = "ARCHIVES_UNIT", length = 256)
+	public String getArchivesUnit() {
+		return this.archivesUnit;
+	}
+
+	public void setArchivesUnit(String archivesUnit) {
+		this.archivesUnit = archivesUnit;
+	}
+
+	@Column(name = "ARCHIVES_EXPLAIN", length = 2000)
+	public String getArchivesExplain() {
+		return this.archivesExplain;
+	}
+
+	public void setArchivesExplain(String archivesExplain) {
+		this.archivesExplain = archivesExplain;
+	}
+	private boolean fromDw;
+
 	@Transient
 	public boolean isFromDw() {
 		return fromDw;
@@ -917,5 +953,4 @@ public class PubUser implements java.io.Serializable {
 	public void setFromDw(boolean fromDw) {
 		this.fromDw = fromDw;
 	}
-
 }
