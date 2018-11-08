@@ -7,9 +7,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import test.io.IOUtil;
-import antlr.Utils;
-
 public class TableInfo {
 	//FIXME 支持正则匹配
 	//FIXME 支持直接通过文件名实例化
@@ -128,6 +125,22 @@ public class TableInfo {
 		this.indexList = indexList;
 	}
 
-	
-	
+	public List<String> findSameCols(TableInfo compareTableInfo){
+		List<String> result = new ArrayList<>();
+		for(ColInfo colInfo : this.colInfos){
+			if(compareTableInfo.getColInfoMap().get(colInfo.getColName())!=null){
+				result.add(colInfo.getColName());
+			}
+		}
+		return result;
+	}
+	public boolean isSameCols(TableInfo compareTableInfo){
+		boolean isSame = true;
+		for(ColInfo colInfo : this.colInfos){
+			if(compareTableInfo.getColInfoMap().get(colInfo.getColName())!=null){
+				isSame =false;
+			}
+		}
+		return isSame;
+	}
 }

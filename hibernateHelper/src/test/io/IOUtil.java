@@ -6,26 +6,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import org.apache.commons.codec.Charsets;
-
-import antlr.Utils;
-import test.table.ColInfo;
 import test.table.TableInfo;
 import test.table.TableUtil;
 import test.util.CalMap;
@@ -60,14 +48,14 @@ public class IOUtil {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{//FIXME 这边关闭流尚未完成，将就使用
+		}finally{//FIXME 杩欒竟鍏抽棴娴佸皻鏈畬鎴愶紝灏嗗氨浣跨敤
 			
 		}
 		return sb.toString();
 	}
 	/**
-	 * 这个方法主要是把file里面的内容连成一句
-	 * NOTED BY @autor YJJ @date 2017年7月3日
+	 * 杩欎釜鏂规硶涓昏鏄妸file閲岄潰鐨勫唴瀹硅繛鎴愪竴鍙�
+	 * NOTED BY @autor YJJ @date 2017骞�7鏈�3鏃�
 	 */
 	public static String readFileToString(String pathname){
 		StringBuilder sb = new StringBuilder();
@@ -85,7 +73,7 @@ public class IOUtil {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{//FIXME 这边关闭流尚未完成，将就使用
+		}finally{//FIXME 杩欒竟鍏抽棴娴佸皻鏈畬鎴愶紝灏嗗氨浣跨敤
 			
 		}
 		return sb.toString();
@@ -106,7 +94,7 @@ public class IOUtil {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{//FIXME 这边关闭流尚未完成，将就使用
+		}finally{//FIXME 杩欒竟鍏抽棴娴佸皻鏈畬鎴愶紝灏嗗氨浣跨敤
 			
 		}
 		
@@ -134,7 +122,7 @@ public class IOUtil {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{//FIXME 这边关闭流尚未完成，将就使用
+		}finally{//FIXME 杩欒竟鍏抽棴娴佸皻鏈畬鎴愶紝灏嗗氨浣跨敤
 			
 		}
 		
@@ -155,8 +143,8 @@ public class IOUtil {
 	
 	
 	/**
-	 * 将数据库的建表语句批量导出，放在一个文件夹下面，这个方法可以他们转换成   表 和 列 映射关系
-	 * NOTED BY @autor YJJ @date 2017年6月26日
+	 * 灏嗘暟鎹簱鐨勫缓琛ㄨ鍙ユ壒閲忓鍑猴紝鏀惧湪涓�涓枃浠跺す涓嬮潰锛岃繖涓柟娉曞彲浠ヤ粬浠浆鎹㈡垚   琛� 鍜� 鍒� 鏄犲皠鍏崇郴
+	 * NOTED BY @autor YJJ @date 2017骞�6鏈�26鏃�
 	 */
 	public static Map<String,List<String>> readDBTable(String path){
 		List<String> fileNames = IOUtil.findSubFileNames(path);
@@ -182,11 +170,21 @@ public class IOUtil {
 		return map;
 		
 	}
+	
 	/**
-	 * 将数据库的建表语句批量导出，放在一个文件夹下面，这个方法可以他们转换成   表 和 列 映射关系
-	 * NOTED BY @autor YJJ @date 2017年6月26日
+	 * 灏嗘暟鎹簱鐨勫缓琛ㄨ鍙ユ壒閲忓鍑猴紝鏀惧湪涓�涓枃浠跺す涓嬮潰锛岃繖涓柟娉曞彲浠ヤ粬浠浆鎹㈡垚   琛� 鍜� 鍒� 鏄犲皠鍏崇郴
+	 * NOTED BY @autor YJJ @date 2017骞�6鏈�26鏃�
 	 */
 	public static List<TableInfo> readDBTableInfo(String path){
+		return readDBTableInfo(path,"");
+	}
+	
+	
+	/**
+	 * 灏嗘暟鎹簱鐨勫缓琛ㄨ鍙ユ壒閲忓鍑猴紝鏀惧湪涓�涓枃浠跺す涓嬮潰锛岃繖涓柟娉曞彲浠ヤ粬浠浆鎹㈡垚   琛� 鍜� 鍒� 鏄犲皠鍏崇郴
+	 * NOTED BY @autor YJJ @date 2017骞�6鏈�26鏃�
+	 */
+	public static List<TableInfo> readDBTableInfo(String path,String regex){
 		List<TableInfo> tableInfos = new ArrayList<>();
 		List<String> fileNames = IOUtil.findSubFileNames(path);
 		
@@ -195,8 +193,9 @@ public class IOUtil {
 				String tableName = fileName.split("\\.")[0];
 				TableInfo table = new TableInfo();
 				table.setTableName(tableName);
+				table.setColNameRegex(regex);
 				String tableContent = IOUtil.readFile(path + "\\" + fileName);
-				TableUtil.fillColInfos(tableContent, table);
+				TableUtil.fillTableCols(tableContent, table);
 				TableUtil.fillTablePrimaryKeyList(IOUtil.readFileList(path + "\\" + fileName), table);
 				TableUtil.fillTableIndexList(IOUtil.readFileList(path + "\\" + fileName), table);
 				tableInfos.add(table);
@@ -204,14 +203,20 @@ public class IOUtil {
 		}
 
 		return tableInfos;
-		
 	}
 	/**
-	 * 将数据库的建表语句批量导出，放在一个文件夹下面，这个方法可以他们转换成   表 和 列 映射关系
-	 * NOTED BY @autor YJJ @date 2017年6月26日
+	 * 灏嗘暟鎹簱鐨勫缓琛ㄨ鍙ユ壒閲忓鍑猴紝鏀惧湪涓�涓枃浠跺す涓嬮潰锛岃繖涓柟娉曞彲浠ヤ粬浠浆鎹㈡垚   琛� 鍜� 鍒� 鏄犲皠鍏崇郴
+	 * NOTED BY @autor YJJ @date 2017骞�6鏈�26鏃�
 	 */
 	public static Map<String,TableInfo> readDBTableInfoMap(String path){
-		List<TableInfo> tableInfos = readDBTableInfo(path);
+		return readDBTableInfoMap(path,"");
+	}
+	/**
+	 * 灏嗘暟鎹簱鐨勫缓琛ㄨ鍙ユ壒閲忓鍑猴紝鏀惧湪涓�涓枃浠跺す涓嬮潰锛岃繖涓柟娉曞彲浠ヤ粬浠浆鎹㈡垚   琛� 鍜� 鍒� 鏄犲皠鍏崇郴
+	 * NOTED BY @autor YJJ @date 2017骞�6鏈�26鏃�
+	 */
+	public static Map<String,TableInfo> readDBTableInfoMap(String path,String regex){
+		List<TableInfo> tableInfos = readDBTableInfo(path,regex);
 		Map<String,TableInfo> map = new HashMap<>();
 		for(TableInfo t:tableInfos){
 			map.put(t.getTableName(), t);
@@ -219,4 +224,37 @@ public class IOUtil {
 		return map;
 	}
 	
+	public static List<String> readSqlToList(String filePath) {
+		List<String> allSqls = new ArrayList<>();
+		List<String> fileNames =  IOUtil.findSubFileNames(filePath);
+		List<String> sqlFileNames = new ArrayList<>();
+		for(String fileName :fileNames) {
+			if(fileName.endsWith(".sql")) {
+				sqlFileNames.add(fileName);
+			}
+		}
+		for(String sqlFile : sqlFileNames) {
+			boolean needStart = true;
+			List<String> sqls = IOUtil.readFileList(filePath+"\\"+sqlFile);
+			String sql = "";
+			for(String s : sqls) {
+				if(needStart) {
+					if(!s.startsWith("insert")) {
+						continue;
+					}
+					
+					needStart = false;
+				}
+				sql+=s;
+				if(s.endsWith(";")) {
+					allSqls.add(sql);
+					sql ="";
+					needStart = true;
+				}
+			}
+			
+		}
+		
+		return allSqls;
+	}
 }

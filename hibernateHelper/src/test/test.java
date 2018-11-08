@@ -1,7 +1,5 @@
 package test;
 
-import hibernateHelper.PubUser;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -13,11 +11,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,9 +23,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Random;
 import java.util.Map.Entry;
-import java.util.TimeZone;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.regex.Matcher;
@@ -44,15 +39,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import test.io.IOUtil;
-import test.password.SignTool;
-
-import com.google.gson.Gson;
-import com.itextpdf.text.log.SysoCounter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComThread;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
+
+import test.io.IOUtil;
 
 public class test implements Cloneable{
 
@@ -66,17 +58,26 @@ public class test implements Cloneable{
 	
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		
-		PubUser user = new PubUser();
-		Field[] fs = PubUser.class.getDeclaredFields();
-		for(Field f : fs){
-			f.setAccessible(true);
-			System.out.println(f.getName());
-			
-			
-		}
+//		List<String> list =IOUtil.readFileList(DEFAULT_FILE_PATH+"javaSql.txt");
+//		for(String l : list ) {
+//			if(!"".equals(l.trim())) {
+//				String[] so = l.split("\t");
+//				String s = so[0];
+//				String o = so[1];
+//				String d = so[2];
+//				System.out.println("UPDATE "+s+" t SET t."+o+"="+"'9' WHERE t."+d+" IN(SELECT t1.data_Id FROM delete_flow_record t1);");
+//			}
+//			
+//		}
+		
+		List<String> list = null;
+		List<String> l = new ArrayList<>(list);
+		System.out.println(l);
 		
 		
 	}
+	
+	
 	
 	public static Map<String,List<String>> findRetainCols(String path1,String path2){
 		Map<String,List<String>> db1 =  IOUtil.readDBTable(path1);
@@ -136,7 +137,7 @@ public class test implements Cloneable{
 			
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
-				System.out.println("未找到文件:"+fileName);
+				System.out.println("鏈壘鍒版枃浠�:"+fileName);
 				continue;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -159,7 +160,7 @@ public class test implements Cloneable{
 				sb.append("contentHtml.append(\""+line+"\");"+"\n");
 				i++;
 			}
-//			System.out.println("总共"+i);
+//			System.out.println("鎬诲叡"+i);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -191,8 +192,8 @@ public class test implements Cloneable{
 				String eleName = getElementName(line);
 				sb.append("form.add(\""+eleName+"\",1);\n");
 				sb.append("form.add("+line+",3);\n");
-//				form.add("35岁以下在岗职工数",1);
-//				form.add(new Text("d1692", "35岁以下在岗职工数", companyInfo.getD1692()==null?"":companyInfo.getD1692().toString()),3);
+//				form.add("35宀佷互涓嬪湪宀楄亴宸ユ暟",1);
+//				form.add(new Text("d1692", "35宀佷互涓嬪湪宀楄亴宸ユ暟", companyInfo.getD1692()==null?"":companyInfo.getD1692().toString()),3);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -315,7 +316,7 @@ public class test implements Cloneable{
 	public String getInsertSql(String tableName,String colName){
 //		
 //		alter table D16 add d16b22 varchar2(20);
-//		comment on column D16.d16b21 is '主管部门';
+//		comment on column D16.d16b21 is '涓荤閮ㄩ棬';
 		String sql = "";
 		return sql;
 	}
@@ -333,7 +334,7 @@ public class test implements Cloneable{
 			
 //			TransformerFactory  tf  =  TransformerFactory.newInstance();
 //			Transformer t = tf.newTransformer();
-//			t.setOutputProperty("encoding","GB23121");//解决中文问题，试过用GBK不行
+//			t.setOutputProperty("encoding","GB23121");//瑙ｅ喅涓枃闂锛岃瘯杩囩敤GBK涓嶈
 //			ByteArrayOutputStream  bos  =  new  ByteArrayOutputStream();
 //			t.transform(new DOMSource(doc), new StreamResult(bos));
 //			String xmlStr = bos.toString();
@@ -406,16 +407,16 @@ public class test implements Cloneable{
         List<Class>  returnClassList = null;
         
         if(c.isInterface()) {
-            // 获取当前的包名
+            // 鑾峰彇褰撳墠鐨勫寘鍚�
             String packageName = c.getPackage().getName();
-            // 获取当前包下以及子包下所以的类
+            // 鑾峰彇褰撳墠鍖呬笅浠ュ強瀛愬寘涓嬫墍浠ョ殑绫�
             List<Class<?>> allClass = getClasses(packageName);
             if(allClass != null) {
                 returnClassList = new ArrayList<Class>();
                 for(Class classes : allClass) {
-                    // 判断是否是同一个接口
+                    // 鍒ゆ柇鏄惁鏄悓涓�涓帴鍙�
                     if(c.isAssignableFrom(classes)) {
-                        // 本身不加入进去
+                        // 鏈韩涓嶅姞鍏ヨ繘鍘�
                         if(!c.equals(classes)) {
                             returnClassList.add(classes);        
                         }
@@ -429,63 +430,63 @@ public class test implements Cloneable{
 	
 	public static List<Class<?>> getClasses(String packageName){
         
-        //第一个class类的集合
+        //绗竴涓猚lass绫荤殑闆嗗悎
         List<Class<?>> classes = new ArrayList<Class<?>>();
-        //是否循环迭代
+        //鏄惁寰幆杩唬
         boolean recursive = true;
-        //获取包的名字 并进行替换
+        //鑾峰彇鍖呯殑鍚嶅瓧 骞惰繘琛屾浛鎹�
         String packageDirName = packageName.replace('.', '/');
-        //定义一个枚举的集合 并进行循环来处理这个目录下的things
+        //瀹氫箟涓�涓灇涓剧殑闆嗗悎 骞惰繘琛屽惊鐜潵澶勭悊杩欎釜鐩綍涓嬬殑things
         Enumeration<URL> dirs;
         try {
             dirs = Thread.currentThread().getContextClassLoader().getResources(packageDirName);
-            //循环迭代下去
+            //寰幆杩唬涓嬪幓
             while (dirs.hasMoreElements()){
-                //获取下一个元素
+                //鑾峰彇涓嬩竴涓厓绱�
                 URL url = dirs.nextElement();
-                //得到协议的名称
+                //寰楀埌鍗忚鐨勫悕绉�
                 String protocol = url.getProtocol();
-                //如果是以文件的形式保存在服务器上
+                //濡傛灉鏄互鏂囦欢鐨勫舰寮忎繚瀛樺湪鏈嶅姟鍣ㄤ笂
                 if ("file".equals(protocol)) {
-                    //获取包的物理路径
+                    //鑾峰彇鍖呯殑鐗╃悊璺緞
                     String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
-                    //以文件的方式扫描整个包下的文件 并添加到集合中
+                    //浠ユ枃浠剁殑鏂瑰紡鎵弿鏁翠釜鍖呬笅鐨勬枃浠� 骞舵坊鍔犲埌闆嗗悎涓�
                     findAndAddClassesInPackageByFile(packageName, filePath, recursive, classes);
                 } else if ("jar".equals(protocol)){
-                    //如果是jar包文件 
-                    //定义一个JarFile
+                    //濡傛灉鏄痡ar鍖呮枃浠� 
+                    //瀹氫箟涓�涓狫arFile
                     JarFile jar;
                     try {
-                        //获取jar
+                        //鑾峰彇jar
                         jar = ((JarURLConnection) url.openConnection()).getJarFile();
-                        //从此jar包 得到一个枚举类
+                        //浠庢jar鍖� 寰楀埌涓�涓灇涓剧被
                         Enumeration<JarEntry> entries = jar.entries();
-                        //同样的进行循环迭代
+                        //鍚屾牱鐨勮繘琛屽惊鐜凯浠�
                         while (entries.hasMoreElements()) {
-                            //获取jar里的一个实体 可以是目录 和一些jar包里的其他文件 如META-INF等文件
+                            //鑾峰彇jar閲岀殑涓�涓疄浣� 鍙互鏄洰褰� 鍜屼竴浜沯ar鍖呴噷鐨勫叾浠栨枃浠� 濡侻ETA-INF绛夋枃浠�
                             JarEntry entry = entries.nextElement();
                             String name = entry.getName();
-                            //如果是以/开头的
+                            //濡傛灉鏄互/寮�澶寸殑
                             if (name.charAt(0) == '/') {
-                                //获取后面的字符串
+                                //鑾峰彇鍚庨潰鐨勫瓧绗︿覆
                                 name = name.substring(1);
                             }
-                            //如果前半部分和定义的包名相同
+                            //濡傛灉鍓嶅崐閮ㄥ垎鍜屽畾涔夌殑鍖呭悕鐩稿悓
                             if (name.startsWith(packageDirName)) {
                                 int idx = name.lastIndexOf('/');
-                                //如果以"/"结尾 是一个包
+                                //濡傛灉浠�"/"缁撳熬 鏄竴涓寘
                                 if (idx != -1) {
-                                    //获取包名 把"/"替换成"."
+                                    //鑾峰彇鍖呭悕 鎶�"/"鏇挎崲鎴�"."
                                     packageName = name.substring(0, idx).replace('/', '.');
                                 }
-                                //如果可以迭代下去 并且是一个包
+                                //濡傛灉鍙互杩唬涓嬪幓 骞朵笖鏄竴涓寘
                                 if ((idx != -1) || recursive){
-                                    //如果是一个.class文件 而且不是目录
+                                    //濡傛灉鏄竴涓�.class鏂囦欢 鑰屼笖涓嶆槸鐩綍
                                     if (name.endsWith(".class") && !entry.isDirectory()) {
-                                        //去掉后面的".class" 获取真正的类名
+                                        //鍘绘帀鍚庨潰鐨�".class" 鑾峰彇鐪熸鐨勭被鍚�
                                         String className = name.substring(packageName.length() + 1, name.length() - 6);
                                         try {
-                                            //添加到classes
+                                            //娣诲姞鍒癱lasses
                                             classes.add(Class.forName(packageName + '.' + className));
                                         } catch (ClassNotFoundException e) {
                                             e.printStackTrace();
@@ -508,36 +509,36 @@ public class test implements Cloneable{
 	
 	
 	/**
-	 * 以文件的形式来获取包下的所有Class
+	 * 浠ユ枃浠剁殑褰㈠紡鏉ヨ幏鍙栧寘涓嬬殑鎵�鏈塁lass
 	 * @param packageName
 	 * @param packagePath
 	 * @param recursive
 	 * @param classes
 	 */
 	public static void findAndAddClassesInPackageByFile(String packageName, String packagePath, final boolean recursive, List<Class<?>> classes){
-	    //获取此包的目录 建立一个File
+	    //鑾峰彇姝ゅ寘鐨勭洰褰� 寤虹珛涓�涓狥ile
 	    File dir = new File(packagePath);
-	    //如果不存在或者 也不是目录就直接返回
+	    //濡傛灉涓嶅瓨鍦ㄦ垨鑰� 涔熶笉鏄洰褰曞氨鐩存帴杩斿洖
 	    if (!dir.exists() || !dir.isDirectory()) {
 	        return;
 	    }
-	    //如果存在 就获取包下的所有文件 包括目录
+	    //濡傛灉瀛樺湪 灏辫幏鍙栧寘涓嬬殑鎵�鏈夋枃浠� 鍖呮嫭鐩綍
 	    File[] dirfiles = dir.listFiles(new FileFilter() {
-	    	//自定义过滤规则 如果可以循环(包含子目录) 或则是以.class结尾的文件(编译好的java类文件)
+	    	//鑷畾涔夎繃婊よ鍒� 濡傛灉鍙互寰幆(鍖呭惈瀛愮洰褰�) 鎴栧垯鏄互.class缁撳熬鐨勬枃浠�(缂栬瘧濂界殑java绫绘枃浠�)
 	        public boolean accept(File file) {
 	           return (recursive && file.isDirectory()) || (file.getName().endsWith(".class"));
 	        }
 	    });
-	    //循环所有文件
+	    //寰幆鎵�鏈夋枃浠�
 	    for (File file : dirfiles) {
-	        //如果是目录 则继续扫描
+	        //濡傛灉鏄洰褰� 鍒欑户缁壂鎻�
 	        if (file.isDirectory()) {
 	            findAndAddClassesInPackageByFile(packageName + "." + file.getName(), file.getAbsolutePath(), recursive, classes);
 	        }else {
-	            //如果是java类文件 去掉后面的.class 只留下类名
+	            //濡傛灉鏄痡ava绫绘枃浠� 鍘绘帀鍚庨潰鐨�.class 鍙暀涓嬬被鍚�
 	            String className = file.getName().substring(0, file.getName().length() - 6);
 	            try {
-	                //添加到集合中去
+	                //娣诲姞鍒伴泦鍚堜腑鍘�
 	                classes.add(Class.forName(packageName + '.' + className));
 	            } catch (ClassNotFoundException e) {
 	                e.printStackTrace();
@@ -572,7 +573,7 @@ public class test implements Cloneable{
 	}
 	
 	
-	//FIXME 求质数
+	//FIXME 姹傝川鏁�
 //	String regex = "^1?$|^(11+?)\\1+$";
 //	StringBuffer sb = new StringBuffer();
 //	for (int i = 1; i <= 5000; i++) {
@@ -610,26 +611,26 @@ public class test implements Cloneable{
 		          ActiveXComponent xl = new ActiveXComponent("Excel.Application"); 
 		           try { 
 		              // System.out.println("version=" + xl.getProperty("Version")); 
-		                 //不打开文档 
-		                 Dispatch.put(xl, "Visible", new Variant(false)); //new Variant(true)显示文档
+		                 //涓嶆墦寮�鏂囨。 
+		                 Dispatch.put(xl, "Visible", new Variant(false)); //new Variant(true)鏄剧ず鏂囨。
 		                 Dispatch workbooks = xl.getProperty("Workbooks").toDispatch(); 
 		                 Dispatch excel=Dispatch.call(workbooks,"Open",path).toDispatch(); 
-		                //调用excel宏的方法(不带参数的宏)需要说明宏所在的文档  
+		                //璋冪敤excel瀹忕殑鏂规硶(涓嶅甫鍙傛暟鐨勫畯)闇�瑕佽鏄庡畯鎵�鍦ㄧ殑鏂囨。  
 		                Dispatch.call(xl, "Run", new Variant("test.xls!Sheet1.test"));         
-		                 // 横向打印
+		                 // 妯悜鎵撳嵃
 		                // Dispatch currentSheet = Dispatch.get(excel, "ActiveSheet")
 		                // .toDispatch();
 		                // Dispatch pageSetup = Dispatch
 		                // .get(currentSheet, "PageSetup").toDispatch();
-		                 // Dispatch.put(pageSetup, "Orientation", new Variant(2)); //Variant(2)横向打印
-		                 //设置边距
+		                 // Dispatch.put(pageSetup, "Orientation", new Variant(2)); //Variant(2)妯悜鎵撳嵃
+		                 //璁剧疆杈硅窛
 		                // Dispatch.put(pageSetup,"LeftMargin",0);
 		                // Dispatch.put(pageSetup,"RightMargin",0);
 		                // Dispatch.put(pageSetup,"TopMargin",0);
 		               //  Dispatch.put(pageSetup,"BottomMargin",0);
-		                 //开始打印 
+		                 //寮�濮嬫墦鍗� 
 		                 Dispatch.get(excel,"PrintOut"); 
-		                 //增加以下三行代码解决文件无法删除bug
+		                 //澧炲姞浠ヤ笅涓夎浠ｇ爜瑙ｅ喅鏂囦欢鏃犳硶鍒犻櫎bug
 		                 Dispatch.call(excel, "save");
 		                 Dispatch.call(excel,  "Close" ,  new  Variant(true)); 
 		                 excel=null;
@@ -639,7 +640,7 @@ public class test implements Cloneable{
 		                  e.printStackTrace(); 
 		                  return false;
 		                } finally { 
-		                    //始终释放资源 
+		                    //濮嬬粓閲婃斁璧勬簮 
 		                   xl.invoke("Quit", new Variant[] {});
 		                   xl=null;
 		                   ComThread.Release();
@@ -650,7 +651,7 @@ public class test implements Cloneable{
 		   }  
 	  
 	  /**
-		 * 计算两个时间之间间隔几天
+		 * 璁＄畻涓や釜鏃堕棿涔嬮棿闂撮殧鍑犲ぉ
 		 * @param startDate
 		 * @param endDate
 		 * @return

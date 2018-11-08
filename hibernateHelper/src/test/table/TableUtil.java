@@ -62,7 +62,7 @@ public class TableUtil {
 	 * 读取表中的字段备注映射关系，这里只处理了理想状态下的sql
 	 * NOTED BY @autor YJJ @date 2017年6月30日
 	 */
-	public static void fillColInfos(String input,TableInfo table){
+	public static void fillTableCols(String input,TableInfo table){
 		
 		String colContent = TableUtil.getAreaContent(input, "");
 		Map<String,String> remarkMap = findColRemarks(input);

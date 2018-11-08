@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.lang.reflect.GenericDeclaration;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.net.JarURLConnection;
@@ -21,17 +22,47 @@ public class FindClassExtends {
 
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException {
 		try {
-			Class<?> c = Class.forName("test.jdk.AbstractSuperrClass");
+			Class<?> c = Class.forName("com.rongji.party.pub.service.flow.impl.AbstractFlowHandleCallback");
 			List<Class> classes =  getAllClassByInterface(c);
-			for(Class cls:classes){
-//				Object o = cls.newInstance();
+			for(Class<?> cls:classes){
+				//方法调用
+				Object o = cls.newInstance();
+				try {
+					Object flowCode = cls.getMethod("getFlowCode").invoke(o);
+					System.out.print(""+flowCode.toString()+"\t");
+					Object flowName = cls.getMethod("getFlowName").invoke(o);
+					System.out.println(flowName.toString());
+				} catch (IllegalArgumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InvocationTargetException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NoSuchMethodException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SecurityException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				try {
+					cls.getMethod("getFlowCode");
+				} catch (NoSuchMethodException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				//打印泛型
 				String supperCls = cls.getGenericSuperclass().toString();
 				Matcher m = Pattern.compile("<(.+?)>").matcher(supperCls);
 				String templeteName = "";
 				if(m.find()){
 					if(m.groupCount()>=1){
 						templeteName = m.group(1);
-						System.out.println(templeteName);
+//						System.out.println(templeteName);
 					}
 				}
 				Class tCls = Class.forName(templeteName);
