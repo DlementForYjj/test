@@ -21,7 +21,7 @@ public class FindClassExtends {
 
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException {
 		try {
-			Class<?> c = Class.forName("test.IntfTest");
+			Class<?> c = Class.forName("test.jdk.AbstractSuperrClass");
 			List<Class> classes =  getAllClassByInterface(c);
 			for(Class cls:classes){
 //				Object o = cls.newInstance();
@@ -31,6 +31,7 @@ public class FindClassExtends {
 				if(m.find()){
 					if(m.groupCount()>=1){
 						templeteName = m.group(1);
+						System.out.println(templeteName);
 					}
 				}
 				Class tCls = Class.forName(templeteName);
